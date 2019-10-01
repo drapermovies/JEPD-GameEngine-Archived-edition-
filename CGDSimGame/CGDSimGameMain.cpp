@@ -99,3 +99,27 @@ void CGDSimGameMain::OnDeviceRestored()
 	m_fpsTextRenderer->CreateDeviceDependentResources();
 	CreateWindowSizeDependentResources();
 }
+
+int WINAPI WinMain(HINSTANCE h_instance, HINSTANCE h_prevInstance, PSTR PScmdLine, int iCmdshow)
+{
+	SystemClass* system = nullptr;
+	bool result = false;
+
+	system = new SystemClass;
+	if (!system)
+	{
+		return 0;
+	}
+
+	result = system->Initialize();
+	if (result)
+	{
+		system->Run();
+	}
+
+	system->Shutdown();
+	delete system;
+	system = nullptr;
+
+	return 0;
+}
