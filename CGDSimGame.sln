@@ -1,0 +1,51 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29209.62
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CGDSimGame", "CGDSimGame\CGDSimGame.vcxproj", "{E26763A5-95C0-42E8-8B4F-67B2B765C1BF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|ARM = Debug|ARM
+		Debug|ARM64 = Debug|ARM64
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|ARM = Release|ARM
+		Release|ARM64 = Release|ARM64
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E26763A5-95C0-42E8-8B4F-67B2B765C1BF}.Debug|ARM.ActiveCfg = Debug|ARM
+		{E26763A5-95C0-42E8-8B4F-67B2B765C1BF}.Debug|ARM.Build.0 = Debug|ARM
+		{E26763A5-95C0-42E8-8B4F-67B2B765C1BF}.Debug|ARM.Deploy.0 = Debug|ARM
+		{E26763A5-95C0-42E8-8B4F-67B2B765C1BF}.Debug|ARM64.ActiveCfg = Debug|ARM64
+		{E26763A5-95C0-42E8-8B4F-67B2B765C1BF}.Debug|ARM64.Build.0 = Debug|ARM64
+		{E26763A5-95C0-42E8-8B4F-67B2B765C1BF}.Debug|ARM64.Deploy.0 = Debug|ARM64
+		{E26763A5-95C0-42E8-8B4F-67B2B765C1BF}.Debug|x64.ActiveCfg = Debug|x64
+		{E26763A5-95C0-42E8-8B4F-67B2B765C1BF}.Debug|x64.Build.0 = Debug|x64
+		{E26763A5-95C0-42E8-8B4F-67B2B765C1BF}.Debug|x64.Deploy.0 = Debug|x64
+		{E26763A5-95C0-42E8-8B4F-67B2B765C1BF}.Debug|x86.ActiveCfg = Debug|Win32
+		{E26763A5-95C0-42E8-8B4F-67B2B765C1BF}.Debug|x86.Build.0 = Debug|Win32
+		{E26763A5-95C0-42E8-8B4F-67B2B765C1BF}.Debug|x86.Deploy.0 = Debug|Win32
+		{E26763A5-95C0-42E8-8B4F-67B2B765C1BF}.Release|ARM.ActiveCfg = Release|ARM
+		{E26763A5-95C0-42E8-8B4F-67B2B765C1BF}.Release|ARM.Build.0 = Release|ARM
+		{E26763A5-95C0-42E8-8B4F-67B2B765C1BF}.Release|ARM.Deploy.0 = Release|ARM
+		{E26763A5-95C0-42E8-8B4F-67B2B765C1BF}.Release|ARM64.ActiveCfg = Release|ARM64
+		{E26763A5-95C0-42E8-8B4F-67B2B765C1BF}.Release|ARM64.Build.0 = Release|ARM64
+		{E26763A5-95C0-42E8-8B4F-67B2B765C1BF}.Release|ARM64.Deploy.0 = Release|ARM64
+		{E26763A5-95C0-42E8-8B4F-67B2B765C1BF}.Release|x64.ActiveCfg = Release|x64
+		{E26763A5-95C0-42E8-8B4F-67B2B765C1BF}.Release|x64.Build.0 = Release|x64
+		{E26763A5-95C0-42E8-8B4F-67B2B765C1BF}.Release|x64.Deploy.0 = Release|x64
+		{E26763A5-95C0-42E8-8B4F-67B2B765C1BF}.Release|x86.ActiveCfg = Release|Win32
+		{E26763A5-95C0-42E8-8B4F-67B2B765C1BF}.Release|x86.Build.0 = Release|Win32
+		{E26763A5-95C0-42E8-8B4F-67B2B765C1BF}.Release|x86.Deploy.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {16A9640B-6F7A-4829-9BE3-42A2CF224932}
+	EndGlobalSection
+EndGlobal
