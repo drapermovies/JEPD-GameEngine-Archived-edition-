@@ -1,7 +1,8 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\Shaders"
   ],
-  "SelectedNode": "\\Project2.vcxproj",
+  "SelectedNode": "\\colorshaderclass.cpp",
   "PreviewInSolutionExplorer": false
 }
