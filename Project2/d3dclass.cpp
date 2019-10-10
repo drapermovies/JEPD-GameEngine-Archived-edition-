@@ -143,7 +143,7 @@ bool D3DClass::Initialize(int screen_width, int screen_height, bool vsync,
 
 	swap_chain_desc.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
 
-	swap_chain_desc.Flags = 4;
+	swap_chain_desc.Flags = 0;
 
 	feature_level = D3D_FEATURE_LEVEL_11_0;
 
@@ -161,7 +161,7 @@ bool D3DClass::Initialize(int screen_width, int screen_height, bool vsync,
 	if (FAILED(result)) { return false; }
 
 	back_buffer_ptr->Release();
-	back_buffer_ptr = nulptr;
+	back_buffer_ptr = nullptr;
 
 	//Depth Buffer
 	ZeroMemory(&depth_buffer_desc, sizeof(depth_buffer_desc));
@@ -170,7 +170,7 @@ bool D3DClass::Initialize(int screen_width, int screen_height, bool vsync,
 	depth_buffer_desc.Height = screen_height;
 	depth_buffer_desc.MipLevels = 1;
 	depth_buffer_desc.ArraySize = 1;
-	depth_buffer_desc.format = DXGI_FORMAT_D24_UNORM_S8_UINT;
+	depth_buffer_desc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
 	depth_buffer_desc.SampleDesc.Count = 1;
 	depth_buffer_desc.SampleDesc.Quality = 0;
 	depth_buffer_desc.Usage = D3D11_USAGE_DEFAULT;
@@ -205,10 +205,10 @@ bool D3DClass::Initialize(int screen_width, int screen_height, bool vsync,
 	result = m_device->CreateDepthStencilState(&depth_stencil_desc, &m_depthStencilState);
 	if (FAILED(result)) { return false; }
 
-	m_deviceContex->OMSetDepthStencilState(m_depthStencilState, 1);
+	m_deviceContext->OMSetDepthStencilState(m_depthStencilState, 1);
 
 	//Depth Stencil View
-	ZeroMemory(&depth_stencil_desc, sizeof(depth_stencil_view_desc));
+	ZeroMemory(&depth_stencil_view_desc, sizeof(depth_stencil_view_desc));
 
 	depth_stencil_view_desc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
 	depth_stencil_view_desc.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
@@ -235,4 +235,140 @@ bool D3DClass::Initialize(int screen_width, int screen_height, bool vsync,
 	if (FAILED(result)) { return false; }
 
 	m_deviceContext->RSSetState(m_rasterState);
+
+	//Viewport
+	viewport.Width = (float)screen_width;
+	viewport.Height = (float)screen_height;
+	viewport.MinDepth = 0.0f;
+	viewport.MaxDepth = 1.0f;
+	viewport.TopLeftX = 0.0f;
+	viewport.TopLeftY = 0.0f;
+
+	m_deviceContext->RSSetViewports(1, &viewport);
+
+	//Screen Projection Matrix
+	field_of_view = 3.141592654f / 4.0f;
+	screen_aspect = (float)screen_width / (float)screen_height;
+
+	m_projectionMatrix = DirectX::XMMatrixPerspectiveFovLH(field_of_view, screen_aspect, screen_near, screen_depth);
+
+	m_worldMatrix = DirectX::XMMatrixIdentity();
+
+	m_orthoMatrix = DirectX::XMMatrixOrthographicLH((float)screen_width, (float)screen_height, screen_near, screen_depth);
+
+	return true;
 }
+
+void D3DClass::Shutdown()
+{
+	if (m_swapChain)
+	{
+		m_swapChain->SetFullscreenState(false, nullptr);
+	}
+	if (m_rasterState)
+	{
+		m_rasterState->Release();
+		m_rasterState = nullptr;
+	}
+	if (m_depthStencilView)
+	{
+		m_depthStencilView->Release();
+		m_depthStencilView = nullptr;
+	}
+	if (m_depthStencilState)
+	{
+		m_depthStencilState->Release();
+		m_depthStencilState = nullptr;
+	}
+	if (m_depthStencilBuffer)
+	{
+		m_depthStencilBuffer->Release();
+		m_depthStencilBuffer = nullptr;
+	}
+	if (m_renderTargetView)
+	{
+		m_renderTargetView->Release();
+		m_renderTargetView = nullptr;
+	}
+	if (m_deviceContext)
+	{
+		m_deviceContext->Release();
+		m_deviceContext = nullptr;
+	}
+	if (m_device)
+	{
+		m_device->Release();
+		m_device = nullptr;
+	}
+	if (m_swapChain)
+	{
+		m_swapChain->Release();
+		m_swapChain = nullptr;
+	}
+	return;
+}
+
+void D3DClass::BeginScene(float red, float green, float blue, float alpha)
+{
+	float color[4];
+
+	color[0] = red;
+	color[1] = green;
+	color[2] = blue;
+	color[3] = alpha;
+
+	m_deviceContext->ClearRenderTargetView(m_renderTargetView, color);
+	m_deviceContext->ClearDepthStencilView(m_depthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
+
+	return;
+}
+
+void D3DClass::EndScene()
+{
+	if (m_vsync_enabled)
+	{
+		m_swapChain->Present(1, 0);
+	}
+	else
+	{
+		m_swapChain->Present(0, 0);
+	}
+	return;
+}
+
+ID3D11Device* D3DClass::GetDevice()
+{
+	return m_device;
+}
+
+ID3D11DeviceContext* D3DClass::GetDeviceContext()
+{
+	return m_deviceContext;
+}
+
+void D3DClass::GetProjectionMatrix(DirectX::XMMATRIX& projection_matrix)
+{
+	projection_matrix = m_projectionMatrix;
+	return;
+}
+
+void D3DClass::GetWorldMatrix(DirectX::XMMATRIX& world_matrix)
+{
+	world_matrix = m_worldMatrix;
+	return;
+}
+
+void D3DClass::GetOrthoMatrix(DirectX::XMMATRIX& ortho_matrix)
+{
+	ortho_matrix = m_orthoMatrix;
+	return;
+}
+
+void D3DClass::GetVideoCardInfo(char* card_name, int& memory)
+{
+	strcpy_s(card_name, 128, m_videoCardDescription);
+	memory = m_videoCardMemory;
+	return;
+}
+
+

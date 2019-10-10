@@ -9,6 +9,7 @@
 
 class D3DClass 
 {
+public:
 	D3DClass() = default;
 	D3DClass(const D3DClass&) = default;
 	~D3DClass() = default;

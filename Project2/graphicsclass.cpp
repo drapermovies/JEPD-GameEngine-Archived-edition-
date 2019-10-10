@@ -1,6 +1,6 @@
 #include "graphicsclass.h"
 
-bool GraphicsClass::Initialize(int, int, HWND)
+bool GraphicsClass::Initialize(int screen_height, int screen_width, HWND hwnd)
 {
 	bool result = false; 
 	m_D3D = new D3DClass;
