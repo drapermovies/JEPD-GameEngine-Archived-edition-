@@ -4,12 +4,12 @@
 #include <DirectXMath.h>
 #include <fstream>
 
-class ColorShaderClass
+class ColourShaderClass
 {
 public: 
-	ColorShaderClass() = default;
-	ColorShaderClass(const ColorShaderClass&) = default;
-	~ColorShaderClass() = default;
+	ColourShaderClass() = default;
+	ColourShaderClass(const ColourShaderClass&) = default;
+	~ColourShaderClass() = default;
 
 	bool Initialize(ID3D11Device*, HWND);
 	void Shutdown();

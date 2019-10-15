@@ -108,6 +108,39 @@ bool ModelClass::InitializeBuffers(ID3D11Device* device)
 	return true;
 }
 
+void ModelClass::ShutdownBuffers()
+{
+	if (m_indexBuffer)
+	{
+		delete m_indexBuffer;
+		m_indexBuffer = nullptr;
+	}
+
+	if (m_vertexBuffer)
+	{
+		delete m_vertexBuffer;
+		m_vertexBuffer = nullptr;
+	}
+	return;
+}
+
+void ModelClass::RenderBuffers(ID3D11DeviceContext* device_context)
+{
+	unsigned int stride = 0;
+	unsigned int offset = 0;
+
+	stride = sizeof(VertexType);
+	offset = 0;
+
+	device_context->IASetVertexBuffers(0, 1, &m_vertexBuffer, &stride, &offset);
+
+	device_context->IASetIndexBuffer(m_indexBuffer, DXGI_FORMAT_R32_UINT, 0);
+
+	device_context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
+	return;
+}
+
 void ModelClass::ModifyVertex(VertexType& vertex, DirectX::XMFLOAT3 pos, DirectX::XMFLOAT4 color)
 {
 	vertex.position = pos;

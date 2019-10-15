@@ -1,20 +1,20 @@
 #include "colorshaderclass.h"
 
-bool ColorShaderClass::Initialize(ID3D11Device* device, HWND hwnd)
+bool ColourShaderClass::Initialize(ID3D11Device* device, HWND hwnd)
 {
 	bool result = false;
 	result = InitializeShader(device, hwnd, L"../Shaders/color.vs", L"../Engine/color.ps");
 	return result;
 }
 
-void ColorShaderClass::Shutdown()
+void ColourShaderClass::Shutdown()
 {
 	ShutdownShader();
 
 	return;
 }
 
-bool ColorShaderClass::Render(ID3D11DeviceContext* device_context, int index_count, 
+bool ColourShaderClass::Render(ID3D11DeviceContext* device_context, int index_count, 
 						DirectX::XMMATRIX world_matrix, DirectX::XMMATRIX view_matrix, 
 												DirectX::XMMATRIX projection_matrix)
 {
@@ -30,7 +30,7 @@ bool ColorShaderClass::Render(ID3D11DeviceContext* device_context, int index_cou
 
 }
 
-bool ColorShaderClass::InitializeShader(ID3D11Device* device, HWND hwnd,
+bool ColourShaderClass::InitializeShader(ID3D11Device* device, HWND hwnd,
 	WCHAR* vs_fileName, WCHAR* ps_filename)
 {
 	HRESULT result;
@@ -134,7 +134,7 @@ bool ColorShaderClass::InitializeShader(ID3D11Device* device, HWND hwnd,
 	return true;
 }
 
-void ColorShaderClass::ShutdownShader()
+void ColourShaderClass::ShutdownShader()
 {
 	if (m_matrixBuffer)
 	{
@@ -159,7 +159,7 @@ void ColorShaderClass::ShutdownShader()
 	return;
 }
 
-void ColorShaderClass::OutputShaderErrorMessage(ID3D10Blob* error_message, 
+void ColourShaderClass::OutputShaderErrorMessage(ID3D10Blob* error_message, 
 											HWND hwnd, WCHAR* shader_filename)
 {
 	char* compile_errors = nullptr;
@@ -188,7 +188,7 @@ void ColorShaderClass::OutputShaderErrorMessage(ID3D10Blob* error_message,
 	return;
 }
 
-bool ColorShaderClass::SetShaderParameters(ID3D11DeviceContext* device_context, 
+bool ColourShaderClass::SetShaderParameters(ID3D11DeviceContext* device_context, 
 											DirectX::XMMATRIX world_matrix, 
 											DirectX::XMMATRIX view_matrix, 
 											DirectX::XMMATRIX projection_matrix)
@@ -221,7 +221,7 @@ bool ColorShaderClass::SetShaderParameters(ID3D11DeviceContext* device_context,
 	return true;
 }
 
-void ColorShaderClass::RenderShader(ID3D11DeviceContext* device_context, int index_count)
+void ColourShaderClass::RenderShader(ID3D11DeviceContext* device_context, int index_count)
 {
 	device_context->IASetInputLayout(m_layout);
 
