@@ -99,7 +99,7 @@ bool GraphicsClass::Render()
 	m_camera->Render();
 
 	m_D3D->GetWorldMatrix(world_matrix);
-	m_D3D->GetOrthoMatrix(view_matrix);
+	m_camera->GetViewMatrix(view_matrix);
 	m_D3D->GetProjectionMatrix(projection_matrix);
 
 	m_model->Render(m_D3D->GetDeviceContext());
@@ -111,7 +111,6 @@ bool GraphicsClass::Render()
 		return false;
 	}
 
-	m_D3D->BeginScene(0.5f, 0.5f, 0.5f, 1.0f);
 	m_D3D->EndScene();
 	return true;
 }

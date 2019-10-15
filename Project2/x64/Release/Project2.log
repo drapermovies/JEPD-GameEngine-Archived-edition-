@@ -1,0 +1,30 @@
+﻿  cameraclass.cpp
+  colorshaderclass.cpp
+D:\AT-SimGame\Project2\colorshaderclass.cpp(6,88): error C2664:  'bool ColourShaderClass::InitializeShader(ID3D11Device *,HWND,WCHAR *,WCHAR *)': cannot convert argument 3 from 'const wchar_t [20]' to 'WCHAR *'
+D:\AT-SimGame\Project2\colorshaderclass.cpp(6,42): message :  Conversion from string literal loses const qualifier (see /Zc:strictStrings)
+D:\AT-SimGame\Project2\colorshaderclass.cpp(55,63): error C2664:  'int MessageBoxA(HWND,LPCSTR,LPCSTR,UINT)': cannot convert argument 2 from 'WCHAR *' to 'LPCSTR'
+D:\AT-SimGame\Project2\colorshaderclass.cpp(55,21): message :  Types pointed to are unrelated; conversion requires reinterpret_cast, C-style cast or function-style cast
+D:\AT-SimGame\Project2\colorshaderclass.cpp(71,63): error C2664:  'int MessageBoxA(HWND,LPCSTR,LPCSTR,UINT)': cannot convert argument 2 from 'WCHAR *' to 'LPCSTR'
+D:\AT-SimGame\Project2\colorshaderclass.cpp(71,21): message :  Types pointed to are unrelated; conversion requires reinterpret_cast, C-style cast or function-style cast
+D:\AT-SimGame\Project2\colorshaderclass.cpp(185,2): error C2664:  'int MessageBoxA(HWND,LPCSTR,LPCSTR,UINT)': cannot convert argument 2 from 'const wchar_t [59]' to 'LPCSTR'
+  d3dclass.cpp
+D:\AT-SimGame\Project2\colorshaderclass.cpp(185,19): message :  Types pointed to are unrelated; conversion requires reinterpret_cast, C-style cast or function-style cast
+D:\AT-SimGame\Project2\d3dclass.cpp(66,20): warning C4018:  '<': signed/unsigned mismatch
+  graphicsclass.cpp
+D:\AT-SimGame\Project2\d3dclass.cpp(12,21): warning C4101:  'string_length': unreferenced local variable
+D:\AT-SimGame\Project2\graphicsclass.cpp(16,70): error C2664:  'int MessageBoxA(HWND,LPCSTR,LPCSTR,UINT)': cannot convert argument 2 from 'const wchar_t [31]' to 'LPCSTR'
+D:\AT-SimGame\Project2\graphicsclass.cpp(16,20): message :  Types pointed to are unrelated; conversion requires reinterpret_cast, C-style cast or function-style cast
+D:\AT-SimGame\Project2\graphicsclass.cpp(31,69): error C2664:  'int MessageBoxA(HWND,LPCSTR,LPCSTR,UINT)': cannot convert argument 2 from 'const wchar_t [30]' to 'LPCSTR'
+D:\AT-SimGame\Project2\graphicsclass.cpp(31,20): message :  Types pointed to are unrelated; conversion requires reinterpret_cast, C-style cast or function-style cast
+D:\AT-SimGame\Project2\graphicsclass.cpp(44,74): error C2664:  'int MessageBoxA(HWND,LPCSTR,LPCSTR,UINT)': cannot convert argument 2 from 'const wchar_t [35]' to 'LPCSTR'
+  inputclass.cpp
+  main.cpp
+  modelclass.cpp
+  systemclass.cpp
+D:\AT-SimGame\Project2\graphicsclass.cpp(44,20): message :  Types pointed to are unrelated; conversion requires reinterpret_cast, C-style cast or function-style cast
+D:\AT-SimGame\Project2\systemclass.cpp(147,38): error C2440:  '=': cannot convert from 'LPCWSTR' to 'LPCSTR'
+D:\AT-SimGame\Project2\systemclass.cpp(147,21): message :  Types pointed to are unrelated; conversion requires reinterpret_cast, C-style cast or function-style cast
+D:\AT-SimGame\Project2\systemclass.cpp(177,11): error C2664:  'HWND CreateWindowExA(DWORD,LPCSTR,LPCSTR,DWORD,int,int,int,int,HWND,HMENU,HINSTANCE,LPVOID)': cannot convert argument 2 from 'LPCWSTR' to 'LPCSTR'
+D:\AT-SimGame\Project2\systemclass.cpp(177,43): message :  Types pointed to are unrelated; conversion requires reinterpret_cast, C-style cast or function-style cast
+D:\AT-SimGame\Project2\systemclass.cpp(202,48): error C2664:  'BOOL UnregisterClassA(LPCSTR,HINSTANCE)': cannot convert argument 1 from 'LPCWSTR' to 'LPCSTR'
+D:\AT-SimGame\Project2\systemclass.cpp(202,18): message :  Types pointed to are unrelated; conversion requires reinterpret_cast, C-style cast or function-style cast

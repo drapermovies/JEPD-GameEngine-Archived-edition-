@@ -1,11 +1,2 @@
-﻿  graphicsclass.cpp
-  inputclass.cpp
-  main.cpp
-  systemclass.cpp
-D:\Project2\Project2\systemclass.cpp(147,38): error C2440:  '=': cannot convert from 'LPCWSTR' to 'LPCSTR'
-D:\Project2\Project2\systemclass.cpp(147,21): message :  Types pointed to are unrelated; conversion requires reinterpret_cast, C-style cast or function-style cast
-D:\Project2\Project2\systemclass.cpp(177,11): error C2664:  'HWND CreateWindowExA(DWORD,LPCSTR,LPCSTR,DWORD,int,int,int,int,HWND,HMENU,HINSTANCE,LPVOID)': cannot convert argument 2 from 'LPCWSTR' to 'LPCSTR'
-D:\Project2\Project2\systemclass.cpp(177,43): message :  Types pointed to are unrelated; conversion requires reinterpret_cast, C-style cast or function-style cast
-D:\Project2\Project2\systemclass.cpp(202,48): error C2664:  'BOOL UnregisterClassA(LPCSTR,HINSTANCE)': cannot convert argument 1 from 'LPCWSTR' to 'LPCSTR'
-  Generating Code...
-D:\Project2\Project2\systemclass.cpp(202,18): message :  Types pointed to are unrelated; conversion requires reinterpret_cast, C-style cast or function-style cast
+﻿  colorshaderclass.cpp
+  Project2.vcxproj -> D:\AT-SimGame\x64\Debug\Project2.exe

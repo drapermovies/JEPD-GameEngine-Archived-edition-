@@ -3,7 +3,8 @@
 bool ColourShaderClass::Initialize(ID3D11Device* device, HWND hwnd)
 {
 	bool result = false;
-	result = InitializeShader(device, hwnd, L"../Shaders/color.vs", L"../Engine/color.ps");
+	result = InitializeShader(device, hwnd, (WCHAR*)L"../x64/Debug/Color.vs", 
+											(WCHAR*)L"../x64/Debug/Color.ps");
 	return result;
 }
 
@@ -73,13 +74,15 @@ bool ColourShaderClass::InitializeShader(ID3D11Device* device, HWND hwnd,
 		return false;
 	}
 
-	result = device->CreateVertexShader(vertex_shader_buffer->GetBufferPointer(), vertex_shader_buffer->GetBufferSize(), nullptr, &m_vertexShader);
+	result = device->CreateVertexShader(vertex_shader_buffer->GetBufferPointer(), 
+				vertex_shader_buffer->GetBufferSize(), nullptr, &m_vertexShader);
 	if (FAILED(result))
 	{
 		return false;
 	}
 
-	result = device->CreatePixelShader(pixel_shader_buffer->GetBufferPointer(), pixel_shader_buffer->GetBufferSize(), nullptr, &m_pixelShader);
+	result = device->CreatePixelShader(pixel_shader_buffer->GetBufferPointer(), 
+				pixel_shader_buffer->GetBufferSize(), nullptr, &m_pixelShader);
 	if (FAILED(result))
 	{
 		return false;
@@ -207,6 +210,8 @@ bool ColourShaderClass::SetShaderParameters(ID3D11DeviceContext* device_context,
 	{
 		return false;
 	}
+
+	data_ptr = (MatrixBufferType*)mapped_resource.pData;
 
 	data_ptr->world = world_matrix;
 	data_ptr->view = view_matrix;
