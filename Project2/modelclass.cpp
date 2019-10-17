@@ -1,16 +1,23 @@
 #include "modelclass.h"
 
-bool ModelClass::Initialize(ID3D11Device* device)
+bool ModelClass::Initialize(ID3D11Device* device, ID3D11DeviceContext* device_context,
+							char* texture_filename)
 {
 	bool result = false;
 
 	result = InitializeBuffers(device);
+
+	if (result)
+	{
+		result = LoadTexture(device, device_context, texture_filename);
+	}
 
 	return result;
 }
 
 void ModelClass::Shutdown()
 {
+	ReleaseTexture();
 	ShutdownBuffers();
 	return;
 }
@@ -27,6 +34,11 @@ int ModelClass::GetIndexCount()
 	return m_index_count;
 }
 
+ID3D11ShaderResourceView* ModelClass::GetTexture()
+{
+	return m_texture->GetTexture();
+}
+
 bool ModelClass::InitializeBuffers(ID3D11Device* device)
 {
 	VertexType* vertices = nullptr;
@@ -37,9 +49,9 @@ bool ModelClass::InitializeBuffers(ID3D11Device* device)
 	D3D11_SUBRESOURCE_DATA index_data;
 	HRESULT result;
 
-	m_vertex_count = 3;
+	m_vertex_count = 24;
 
-	m_index_count = 3;
+	m_index_count = 36;
 
 	vertices = new VertexType[m_vertex_count];
 	if (!vertices) { return false; }
@@ -50,25 +62,25 @@ bool ModelClass::InitializeBuffers(ID3D11Device* device)
 		return false;
 	}
 
-	ModifyVertex(vertices[0], DirectX::XMFLOAT3(-1.0f, -1, 0.0f), 
-						DirectX::XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f));
-	ModifyVertex(vertices[1], DirectX::XMFLOAT3(0.0f, 1.0f, 0.0f),
-						DirectX::XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f));
-	ModifyVertex(vertices[2], DirectX::XMFLOAT3(1.0f, -1.0f, 0.0f),
-						DirectX::XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f));
-
-	//vertices[0].position = DirectX::XMFLOAT3(-1.0f, -1.0f, 0.0f);  // Bottom left.
-	//vertices[0].color = DirectX::XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f);
-
-	//vertices[1].position = DirectX::XMFLOAT3(0.0f, 1.0f, 0.0f);  // Top middle.
-	//vertices[1].color = DirectX::XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f);
-
-	//vertices[2].position = DirectX::XMFLOAT3(1.0f, -1.0f, 0.0f);  // Bottom right.
-	//vertices[2].color = DirectX::XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f);
+	ModifyVertex(vertices[0], DirectX::XMFLOAT3(1.0f, -1.0f, 0.0f), 
+									DirectX::XMFLOAT2(0.0f, 1.0f), 
+								DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f));
+	ModifyVertex(vertices[1], DirectX::XMFLOAT3(-1.0f, -1.0f, 0.0f),
+									DirectX::XMFLOAT2(0.0f, 1.0f),
+								DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f));
+	ModifyVertex(vertices[2], DirectX::XMFLOAT3(-1.0f, 1.0f, 0.0f),
+									DirectX::XMFLOAT2(0.0f, 1.0f),
+								DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f));
+	ModifyVertex(vertices[3], DirectX::XMFLOAT3(1.0f, 1.0f, 0.0f),
+										DirectX::XMFLOAT2(0.0f, 1.0f),
+								DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f));
 
 	indices[0] = 0;
 	indices[1] = 1;
 	indices[2] = 2;
+	indices[3] = 0;
+	indices[4] = 2;
+	indices[5] = 3;
 
 	//Vertex Buffer
 
@@ -149,7 +161,32 @@ void ModelClass::RenderBuffers(ID3D11DeviceContext* device_context)
 	return;
 }
 
-void ModelClass::ModifyVertex(VertexType& vertex, DirectX::XMFLOAT3 pos, DirectX::XMFLOAT4 color)
+bool ModelClass::LoadTexture(ID3D11Device* device, 
+							 ID3D11DeviceContext* device_context, 
+							 char* file_name)
+{
+	bool result = false;
+
+	m_texture = new TextureClass;
+	if (!m_texture) { return false; }
+
+	result = m_texture->Initialize(device, device_context, file_name);
+
+	return result;
+}
+
+void ModelClass::ReleaseTexture()
+{
+	if (m_texture)
+	{
+		m_texture->Shutdown();
+		delete m_texture;
+		m_texture = nullptr;
+	}
+	return;
+}
+
+void ModelClass::ModifyVertex(VertexType& vertex, DirectX::XMFLOAT3 pos, DirectX::XMFLOAT2 color, DirectX::XMFLOAT3 normal)
 {
 	vertex.position = pos;
 	vertex.color = color;

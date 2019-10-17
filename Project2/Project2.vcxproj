@@ -131,6 +131,8 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="modelclass.cpp" />
     <ClCompile Include="systemclass.cpp" />
+    <ClCompile Include="TextureClass.cpp" />
+    <ClCompile Include="TextureShaderClass.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cameraclass.h" />
@@ -140,8 +142,12 @@
     <ClInclude Include="inputclass.h" />
     <ClInclude Include="modelclass.h" />
     <ClInclude Include="systemclass.h" />
+    <ClInclude Include="TextureClass.h" />
+    <ClInclude Include="TextureShaderClass.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\x64\Debug\Texture.ps" />
+    <None Include="..\x64\Debug\Texture.vs" />
     <None Include="Shaders\Color.ps" />
     <None Include="Shaders\Color.vs" />
   </ItemGroup>

@@ -83,11 +83,11 @@ bool D3DClass::Initialize(int screen_width, int screen_height, bool vsync,
 
 	m_videoCardMemory = (int)(adapter_desc.DedicatedVideoMemory / 1024 / 1024);
 
-	/*error = wcstombs_s(&string_length, m_videoCardDescription, 128, adapter_desc.Description, 128);
+	error = wcstombs_s(&string_length, m_videoCardDescription, 128, adapter_desc.Description, 128);
 	if (error != 0)
 	{
 		return false;
-	}*/
+	}
 
 	delete[] display_mode_list;
 	display_mode_list = nullptr;

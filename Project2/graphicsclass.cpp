@@ -1,6 +1,6 @@
 #include "graphicsclass.h"
 
-bool GraphicsClass::Initialize(int screen_height, int screen_width, HWND hwnd)
+bool GraphicsClass::Initialize(int screen_width, int screen_height, HWND hwnd)
 {
 	bool result = false; 
 	m_D3D = new D3DClass;
@@ -23,7 +23,8 @@ bool GraphicsClass::Initialize(int screen_height, int screen_width, HWND hwnd)
 		return false;
 	}
 
-	m_camera->SetPosition(0.0f, 0.0f, -5.0f);
+	m_camera->SetPosition(0.0f, 0.0f, -6.0f);
+	//m_camera->SetRotation(0.0f, -1.0f, 0.0f);
 
 	m_model = new ModelClass;
 	if (!m_model)
@@ -31,20 +32,21 @@ bool GraphicsClass::Initialize(int screen_height, int screen_width, HWND hwnd)
 		return false;
 	}
 
-	result = m_model->Initialize(m_D3D->GetDevice());
+	result = m_model->Initialize(m_D3D->GetDevice(), m_D3D->GetDeviceContext(), 
+										(char*)"../x64/Debug/data/stone01.tga");
 	if (!result)
 	{
 		MessageBox(hwnd, L"Could not initialize model", L"Error", MB_OK);
 		return false;
 	}
 
-	m_colour_shader = new ColourShaderClass;
-	if (!m_colour_shader)
+	m_textureShader = new TextureShaderClass;
+	if (!m_textureShader)
 	{
 		return false;
 	}
 
-	result = m_colour_shader->Initialize(m_D3D->GetDevice(), hwnd);
+	result = m_textureShader->Initialize(m_D3D->GetDevice(), hwnd);
 	if (!result)
 	{
 		MessageBox(hwnd, L"Could not initialize Colour Shader", L"Error", MB_OK);
@@ -56,11 +58,11 @@ bool GraphicsClass::Initialize(int screen_height, int screen_width, HWND hwnd)
 
 void GraphicsClass::Shutdown()
 {
-	if (m_colour_shader)
+	if (m_textureShader)
 	{
-		m_colour_shader->Shutdown();
-		delete m_colour_shader;
-		m_colour_shader = nullptr;
+		m_textureShader->Shutdown();
+		delete m_textureShader;
+		m_textureShader = nullptr;
 	}
 	if (m_model)
 	{
@@ -110,8 +112,9 @@ bool GraphicsClass::Render()
 
 	m_model->Render(m_D3D->GetDeviceContext());
 
-	result = m_colour_shader->Render(m_D3D->GetDeviceContext(), m_model->GetIndexCount(),
-											world_matrix, view_matrix, projection_matrix);
+	result = m_textureShader->Render(m_D3D->GetDeviceContext(), m_model->GetIndexCount(),
+											world_matrix, view_matrix, projection_matrix,
+																	m_model->GetTexture());
 	if (!result)
 	{
 		return false;

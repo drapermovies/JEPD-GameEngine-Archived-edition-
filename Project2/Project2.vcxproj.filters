@@ -13,7 +13,7 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Engine">
+    <Filter Include="Shaders">
       <UniqueIdentifier>{e3ffe297-4b9f-425f-ba7d-f4a4438018bc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -42,6 +42,12 @@
     <ClCompile Include="modelclass.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="TextureShaderClass.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureClass.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="systemclass.h">
@@ -65,13 +71,25 @@
     <ClInclude Include="modelclass.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="TextureShaderClass.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureClass.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\Color.ps">
-      <Filter>Engine</Filter>
+      <Filter>Shaders</Filter>
     </None>
     <None Include="Shaders\Color.vs">
-      <Filter>Engine</Filter>
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\x64\Debug\Texture.vs">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\x64\Debug\Texture.ps">
+      <Filter>Shaders</Filter>
     </None>
   </ItemGroup>
 </Project>

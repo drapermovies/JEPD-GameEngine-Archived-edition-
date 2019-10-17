@@ -22,19 +22,18 @@ bool ColourShaderClass::Render(ID3D11DeviceContext* device_context, int index_co
 	bool result = false;
 
 	result = SetShaderParameters(device_context, world_matrix, view_matrix, projection_matrix);
-	if (!result)
+	if (result)
 	{
-		return false;
+		RenderShader(device_context, index_count);
 	}
-	RenderShader(device_context, index_count);
-	return true;
+	return result;
 
 }
 
 bool ColourShaderClass::InitializeShader(ID3D11Device* device, HWND hwnd,
 	WCHAR* vs_fileName, WCHAR* ps_filename)
 {
-	HRESULT result;
+	HRESULT result = S_OK;
 	ID3D10Blob* error_message = nullptr;
 	ID3D10Blob* vertex_shader_buffer = nullptr;
 	ID3D10Blob* pixel_shader_buffer = nullptr;
@@ -196,7 +195,7 @@ bool ColourShaderClass::SetShaderParameters(ID3D11DeviceContext* device_context,
 											DirectX::XMMATRIX view_matrix, 
 											DirectX::XMMATRIX projection_matrix)
 {
-	HRESULT result;
+	HRESULT result = S_OK;
 	D3D11_MAPPED_SUBRESOURCE mapped_resource;
 	MatrixBufferType* data_ptr = nullptr;
 	unsigned int buffer_number = 0;
@@ -221,7 +220,7 @@ bool ColourShaderClass::SetShaderParameters(ID3D11DeviceContext* device_context,
 
 	buffer_number = 0;
 
-	device_context->VSGetConstantBuffers(buffer_number, 1, &m_matrixBuffer);
+	device_context->VSSetConstantBuffers(buffer_number, 1, &m_matrixBuffer);
 
 	return true;
 }

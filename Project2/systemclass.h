@@ -8,7 +8,7 @@
 class SystemClass
 {
 public:
-	SystemClass();
+	SystemClass() = default;
 	SystemClass(const SystemClass&) = default;
 	~SystemClass() = default;
 
