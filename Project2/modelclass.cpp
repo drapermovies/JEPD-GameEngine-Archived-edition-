@@ -1,15 +1,21 @@
 #include "modelclass.h"
 
 bool ModelClass::Initialize(ID3D11Device* device, ID3D11DeviceContext* device_context,
-							char* texture_filename)
+							char* model_filename, WCHAR* texture_filename)
 {
 	bool result = false;
+
+	result = LoadModel(model_filename);
+	if (!result)
+	{
+		return false;
+	}
 
 	result = InitializeBuffers(device);
 
 	if (result)
 	{
-		result = LoadTexture(device, device_context, texture_filename);
+		result = LoadTexture(device, device_context, (char*)texture_filename);
 	}
 
 	return result;
@@ -19,6 +25,7 @@ void ModelClass::Shutdown()
 {
 	ReleaseTexture();
 	ShutdownBuffers();
+	ReleaseModel();
 	return;
 }
 
@@ -49,10 +56,6 @@ bool ModelClass::InitializeBuffers(ID3D11Device* device)
 	D3D11_SUBRESOURCE_DATA index_data;
 	HRESULT result;
 
-	m_vertex_count = 24;
-
-	m_index_count = 36;
-
 	vertices = new VertexType[m_vertex_count];
 	if (!vertices) { return false; }
 
@@ -62,25 +65,14 @@ bool ModelClass::InitializeBuffers(ID3D11Device* device)
 		return false;
 	}
 
-	ModifyVertex(vertices[0], DirectX::XMFLOAT3(1.0f, -1.0f, 0.0f), 
-									DirectX::XMFLOAT2(0.0f, 1.0f), 
-								DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f));
-	ModifyVertex(vertices[1], DirectX::XMFLOAT3(-1.0f, -1.0f, 0.0f),
-									DirectX::XMFLOAT2(0.0f, 1.0f),
-								DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f));
-	ModifyVertex(vertices[2], DirectX::XMFLOAT3(-1.0f, 1.0f, 0.0f),
-									DirectX::XMFLOAT2(0.0f, 1.0f),
-								DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f));
-	ModifyVertex(vertices[3], DirectX::XMFLOAT3(1.0f, 1.0f, 0.0f),
-										DirectX::XMFLOAT2(0.0f, 1.0f),
-								DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f));
-
-	indices[0] = 0;
-	indices[1] = 1;
-	indices[2] = 2;
-	indices[3] = 0;
-	indices[4] = 2;
-	indices[5] = 3;
+	for (unsigned int i = 0; i < m_vertex_count; i++)
+	{
+		ModifyVertex(vertices[i],
+					 DirectX::XMFLOAT3(m_model[i].x, m_model[i].y, m_model[i].z),
+					 DirectX::XMFLOAT2(m_model[i].tu, m_model[i].tv),
+					 DirectX::XMFLOAT3(m_model[i].nx, m_model[i].ny, m_model[i].nz));
+		indices[i] = i;
+	}
 
 	//Vertex Buffer
 
@@ -186,8 +178,66 @@ void ModelClass::ReleaseTexture()
 	return;
 }
 
-void ModelClass::ModifyVertex(VertexType& vertex, DirectX::XMFLOAT3 pos, DirectX::XMFLOAT2 color, DirectX::XMFLOAT3 normal)
+void ModelClass::ModifyVertex(VertexType& vertex, DirectX::XMFLOAT3 pos, DirectX::XMFLOAT2 tex, DirectX::XMFLOAT3 normal)
 {
 	vertex.position = pos;
-	vertex.color = color;
+	vertex.texture = tex;
+	vertex.normal = normal;
+}
+
+bool ModelClass::LoadModel(char* filename)
+{
+	std::fstream fin;
+	char input = ' ';
+
+	fin.open(filename);
+
+	if (fin.fail())
+	{
+		return false;
+	}
+
+	fin.get(input);
+	while (input != ':')
+	{
+		fin.get(input);
+	}
+
+	fin >> m_vertex_count;
+
+	m_index_count = m_vertex_count;
+
+	m_model = new ModelType[m_vertex_count];
+	if (!m_model)
+	{
+		return false;
+	}
+
+	fin.get(input);
+	while (input != ':')
+	{
+		fin.get(input);
+	}
+	fin.get(input);
+	fin.get(input);
+
+	for (int i = 0; i < m_vertex_count; i++)
+	{
+		fin >> m_model[i].x >> m_model[i].y >> m_model[i].z;
+		fin >> m_model[i].tu >> m_model[i].tv;
+		fin >> m_model[i].nx >> m_model[i].ny >> m_model[i].nz;
+	}
+	fin.close();
+
+	return true;
+}
+
+void ModelClass::ReleaseModel()
+{
+	if (m_model)
+	{
+		delete[] m_model;
+		m_model = nullptr;
+	}
+	return;
 }

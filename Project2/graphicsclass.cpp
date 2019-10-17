@@ -23,8 +23,8 @@ bool GraphicsClass::Initialize(int screen_width, int screen_height, HWND hwnd)
 		return false;
 	}
 
-	m_camera->SetPosition(0.0f, 0.0f, -6.0f);
-	//m_camera->SetRotation(0.0f, -1.0f, 0.0f);
+	m_camera->SetPosition(0.0f, 3.0f, -6.0f);
+	m_camera->SetRotation(25.0f, 0.0f, 0.0f);
 
 	m_model = new ModelClass;
 	if (!m_model)
@@ -33,7 +33,8 @@ bool GraphicsClass::Initialize(int screen_width, int screen_height, HWND hwnd)
 	}
 
 	result = m_model->Initialize(m_D3D->GetDevice(), m_D3D->GetDeviceContext(), 
-										(char*)"../x64/Debug/data/stone01.tga");
+										(char*)"../x64/Debug/data/cube.txt",
+										(WCHAR*)"../x64/Debug/data/stone01.tga");
 	if (!result)
 	{
 		MessageBox(hwnd, L"Could not initialize model", L"Error", MB_OK);
