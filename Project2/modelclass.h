@@ -6,6 +6,8 @@
 
 class ModelClass
 {
+	friend class GameObject;
+
 public:
 	ModelClass() = default;
 	ModelClass(const ModelClass&) = default;
@@ -18,7 +20,15 @@ public:
 	int GetIndexCount();
 
 	ID3D11ShaderResourceView* GetTexture();
+protected:
+	DirectX::XMFLOAT3 GetPosition() { return m_position; }
+	void SetPosition(float, float, float);
 
+	DirectX::XMFLOAT3 GetScale() { return m_scale; }
+	void SetScale(float, float, float);
+
+	DirectX::XMFLOAT3 GetRotation() { return m_rotation; }
+	void SetRotation(float, float, float);
 private:
 	struct VertexType
 	{
@@ -41,9 +51,16 @@ private:
 		float nz = 0;
 	};
 
+	DirectX::XMFLOAT3 m_position = DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f);
+	DirectX::XMFLOAT3 m_scale = DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f);
+	DirectX::XMFLOAT3 m_rotation = DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f);
+
 	bool InitializeBuffers(ID3D11Device*);
 	void ShutdownBuffers();
 	void RenderBuffers(ID3D11DeviceContext*);
+
+	bool InitializeIndexBuffer(ID3D11Device*);
+	bool InitializeVertexBuffer(ID3D11Device*);
 
 	bool LoadTexture(ID3D11Device*, ID3D11DeviceContext*, char*);
 	void ReleaseTexture();
@@ -53,12 +70,21 @@ private:
 	bool LoadModel(char*);
 	void ReleaseModel();
 
+	bool GenerateVertices();
+
 	ID3D11Buffer* m_vertexBuffer = nullptr;
 	ID3D11Buffer* m_indexBuffer = nullptr;
+
+	VertexType* vertices = nullptr;
+	unsigned long* indices = nullptr;
+
+	ID3D11DeviceContext* m_deviceContext = nullptr;
 
 	int m_vertex_count = -1;
 	int m_index_count = -1;
 
 	TextureClass* m_texture = nullptr;
 	ModelType* m_model = nullptr;
+
+	char* file_path = nullptr;
 };

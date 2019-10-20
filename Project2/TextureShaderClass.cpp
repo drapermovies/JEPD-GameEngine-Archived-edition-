@@ -3,8 +3,9 @@
 bool TextureShaderClass::Initialize(ID3D11Device* device, HWND hwnd)
 {
 	bool result = false;
-	result = InitializeShader(device, hwnd, (WCHAR*)L"../x64/Debug/Texture.vs", 
-											(WCHAR*)L"../x64/Debug/Texture.ps");
+	result = InitializeShader(device, hwnd, 
+							(WCHAR*)L"../x64/Debug/data/Shaders/Texture.vs", 
+							(WCHAR*)L"../x64/Debug/data/Shaders/Texture.ps");
 	return result;
 }
 

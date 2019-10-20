@@ -3,6 +3,7 @@
 #include <d3dcompiler.h>
 #include <DirectXMath.h>
 #include <fstream>
+#include "MatrixBufferType.h"
 
 class ColourShaderClass
 {
@@ -16,13 +17,6 @@ public:
 	bool Render(ID3D11DeviceContext*, int, DirectX::XMMATRIX, DirectX::XMMATRIX, 
 																DirectX::XMMATRIX);
 private:
-	struct MatrixBufferType
-	{
-		DirectX::XMMATRIX world;
-		DirectX::XMMATRIX view;
-		DirectX::XMMATRIX projection;
-	};
-
 	bool InitializeShader(ID3D11Device*, HWND, WCHAR*, WCHAR*);
 	void ShutdownShader();
 	void OutputShaderErrorMessage(ID3D10Blob*, HWND, WCHAR*);

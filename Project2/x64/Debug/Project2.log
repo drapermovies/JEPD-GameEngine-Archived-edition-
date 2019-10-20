@@ -1,2 +1,4 @@
-﻿  graphicsclass.cpp
+﻿  modelclass.cpp
+C:\Users\Joel\Documents\GitHub\AT-SimGame\Project2\modelclass.cpp(71,10): warning C4101: 'result': unreferenced local variable
+C:\Users\Joel\Documents\GitHub\AT-SimGame\Project2\modelclass.cpp(292,29): warning C4018: '<': signed/unsigned mismatch
   Project2.vcxproj -> C:\Users\Joel\Documents\GitHub\AT-SimGame\x64\Debug\Project2.exe

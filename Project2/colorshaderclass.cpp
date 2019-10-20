@@ -3,8 +3,9 @@
 bool ColourShaderClass::Initialize(ID3D11Device* device, HWND hwnd)
 {
 	bool result = false;
-	result = InitializeShader(device, hwnd, (WCHAR*)L"../x64/Debug/Color.vs", 
-											(WCHAR*)L"../x64/Debug/Color.ps");
+	result = InitializeShader(device, hwnd, 
+							(WCHAR*)L"../x64/Debug/data/Shaders/Color.vs", 
+							(WCHAR*)L"../x64/Debug/data/Shaders/Color.ps");
 	return result;
 }
 
