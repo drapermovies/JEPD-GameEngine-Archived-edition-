@@ -41,8 +41,6 @@ bool GraphicsClass::Initialize(int screen_width, int screen_height, HWND hwnd)
 		return false;
 	}
 
-	//m_model->SetPosition(0, 2.0f, 0.0f);
-
 	m_lightShader = new LightShaderClass;
 	if (!m_lightShader)
 	{

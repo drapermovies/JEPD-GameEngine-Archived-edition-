@@ -47,13 +47,13 @@ int ModelClass::GetIndexCount()
 void ModelClass::SetPosition(float x, float y, float z)
 {
 	m_position = DirectX::XMFLOAT3(x, y, z);
-	GenerateVertices();
+	GenerateVertices(m_deviceContext);
 }
 
 void ModelClass::SetScale(float x, float y, float z)
 {
 	m_scale = DirectX::XMFLOAT3(x, y, z);
-	GenerateVertices();
+	GenerateVertices(m_deviceContext);
 }
 
 void ModelClass::SetRotation(float x, float y, float z)
@@ -68,6 +68,8 @@ ID3D11ShaderResourceView* ModelClass::GetTexture()
 
 bool ModelClass::InitializeBuffers(ID3D11Device* device)
 {
+	VertexType* vertices = nullptr;
+	unsigned long* indices = nullptr;
 	HRESULT result;
 
 	indices = new unsigned long[m_index_count];
@@ -82,11 +84,24 @@ bool ModelClass::InitializeBuffers(ID3D11Device* device)
 		return false;
 	}
 
-	GenerateVertices();
+	memset(vertices, 0, sizeof(VertexType) * m_vertex_count);
 
-	InitializeVertexBuffer(device);
+	for (int i = 0; i < m_index_count; i++)
+	{
+		indices[i] = i;
+	}
 
-	InitializeIndexBuffer(device);
+	InitializeVertexBuffer(device, vertices);
+
+	InitializeIndexBuffer(device, indices);
+
+	GenerateVertices(m_deviceContext);
+
+	delete[] vertices;
+	vertices = nullptr;
+
+	delete[] indices;
+	indices = nullptr;
 
 	return true;
 }
@@ -109,16 +124,6 @@ void ModelClass::ShutdownBuffers()
 		delete file_path;
 		file_path = nullptr;
 	}
-	if (vertices)
-	{
-		delete vertices;
-		vertices = nullptr;
-	}
-	if (indices)
-	{
-		delete indices;
-		indices = nullptr;
-	}
 	return;
 }
 
@@ -138,7 +143,7 @@ void ModelClass::RenderBuffers(ID3D11DeviceContext* device_context)
 	return;
 }
 
-bool ModelClass::InitializeIndexBuffer(ID3D11Device* device)
+bool ModelClass::InitializeIndexBuffer(ID3D11Device* device, unsigned long* indices)
 {
 	HRESULT result = S_OK;
 	CD3D11_BUFFER_DESC index_buffer_desc;
@@ -164,16 +169,16 @@ bool ModelClass::InitializeIndexBuffer(ID3D11Device* device)
 	return false;
 }
 
-bool ModelClass::InitializeVertexBuffer(ID3D11Device* device)
+bool ModelClass::InitializeVertexBuffer(ID3D11Device* device, VertexType* vertices)
 {
 	CD3D11_BUFFER_DESC vertex_buffer_desc;
 	D3D11_SUBRESOURCE_DATA vertex_data;
 	HRESULT result = S_OK;
 
-	vertex_buffer_desc.Usage = D3D11_USAGE_DEFAULT;
+	vertex_buffer_desc.Usage = D3D11_USAGE_DYNAMIC;
 	vertex_buffer_desc.ByteWidth = sizeof(VertexType) * m_vertex_count;
 	vertex_buffer_desc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
-	vertex_buffer_desc.CPUAccessFlags = 0;
+	vertex_buffer_desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
 	vertex_buffer_desc.MiscFlags = 0;
 	vertex_buffer_desc.StructureByteStride = 0;
 
@@ -284,16 +289,40 @@ void ModelClass::ReleaseModel()
 	return;
 }
 
-bool ModelClass::GenerateVertices()
+bool ModelClass::GenerateVertices(ID3D11DeviceContext* device_context)
 {
 	float x = 0, y = 0, z = 0;
-	ModelType* model = nullptr;
+
+	VertexType* vertices = nullptr;
+	VertexType* vertices_ptr = nullptr;
+
+	unsigned long* indices = nullptr;
+	unsigned long* indices_ptr = nullptr;
+
+	D3D11_MAPPED_SUBRESOURCE mapped_resource;
+
+	HRESULT result = S_OK;
+
+	vertices = new VertexType[m_vertex_count];
+	if (!vertices)
+	{
+		return false;
+	}
+
+	indices = new unsigned long[m_index_count];
+	if (!indices)
+	{
+		return false;
+	}
 
 	for (unsigned int i = 0; i < m_vertex_count; i++)
 	{
-		x = m_model[i].x;
-		y = m_model[i].y;
-		z = m_model[i].z;
+		//x = m_model[i].x;
+		//y = m_model[i].y;
+		//z = m_model[i].z;
+		x = m_model[i].x + m_position.x;
+		y = m_model[i].y + m_position.y;
+		z = m_model[i].z + m_position.z;
 
 		ModifyVertex(vertices[i],
 			DirectX::XMFLOAT3(x, y, z),
@@ -301,6 +330,34 @@ bool ModelClass::GenerateVertices()
 			DirectX::XMFLOAT3(m_model[i].nx, m_model[i].ny, m_model[i].nz));
 		indices[i] = i;
 	}
+
+	result = device_context->Map(m_vertexBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mapped_resource);
+	if (FAILED(result))
+	{
+		return false;
+	}
+
+	vertices_ptr = (VertexType*)mapped_resource.pData;
+	
+	memcpy(vertices_ptr, (void*)vertices, (sizeof(VertexType) * m_vertex_count));
+
+	device_context->Unmap(m_vertexBuffer, 0);
+
+	result = device_context->Map(m_indexBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mapped_resource);
+	if (FAILED(result))
+	{
+		return false;
+	}
+
+	memcpy(indices_ptr, (void*)indices, (sizeof(unsigned long) * m_index_count));
+
+	device_context->Unmap(m_indexBuffer, 0);
+
+	delete[] vertices;
+	vertices = nullptr;
+
+	delete[] indices;
+	indices = nullptr;
 
 	return true;
 }

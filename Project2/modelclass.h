@@ -59,8 +59,8 @@ private:
 	void ShutdownBuffers();
 	void RenderBuffers(ID3D11DeviceContext*);
 
-	bool InitializeIndexBuffer(ID3D11Device*);
-	bool InitializeVertexBuffer(ID3D11Device*);
+	bool InitializeIndexBuffer(ID3D11Device*, unsigned long*);
+	bool InitializeVertexBuffer(ID3D11Device*, VertexType*);
 
 	bool LoadTexture(ID3D11Device*, ID3D11DeviceContext*, char*);
 	void ReleaseTexture();
@@ -70,13 +70,10 @@ private:
 	bool LoadModel(char*);
 	void ReleaseModel();
 
-	bool GenerateVertices();
+	bool GenerateVertices(ID3D11DeviceContext*);
 
 	ID3D11Buffer* m_vertexBuffer = nullptr;
 	ID3D11Buffer* m_indexBuffer = nullptr;
-
-	VertexType* vertices = nullptr;
-	unsigned long* indices = nullptr;
 
 	ID3D11DeviceContext* m_deviceContext = nullptr;
 
