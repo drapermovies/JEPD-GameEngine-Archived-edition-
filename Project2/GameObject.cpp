@@ -1,5 +1,22 @@
 #include "GameObject.h"
 
+bool GameObject::Initialize(ID3D11Device* device, ID3D11DeviceContext* device_context, 
+							char* model_filename, WCHAR* texture_filename)
+{
+	bool result = false;
+
+	m_model = new ModelClass;
+	if (!m_model)
+	{
+		return false;
+	}
+
+	result = m_model->Initialize(device, device_context, model_filename, texture_filename);
+	m_model->SetScale(2.0f, 2.0f, 2.0f);
+
+	return result;
+}
+
 void GameObject::Release()
 {
 	if (m_model)
@@ -7,6 +24,11 @@ void GameObject::Release()
 		delete m_model;
 		m_model = nullptr;
 	}
+}
+
+void GameObject::Render(ID3D11DeviceContext* device_context)
+{
+	m_model->Render(device_context);
 }
 
 std::string GameObject::GetName()

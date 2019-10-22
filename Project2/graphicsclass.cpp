@@ -26,13 +26,13 @@ bool GraphicsClass::Initialize(int screen_width, int screen_height, HWND hwnd)
 	m_camera->SetPosition(0.0f, 3.0f, -6.0f);
 	m_camera->SetRotation(25.0f, 0.0f, -6.0f);
 
-	m_model = new ModelClass;
-	if (!m_model)
+	m_object = new GameObject();
+	if (!m_object)
 	{
 		return false;
 	}
 
-	result = m_model->Initialize(m_D3D->GetDevice(), m_D3D->GetDeviceContext(), 
+	result = m_object->Initialize(m_D3D->GetDevice(), m_D3D->GetDeviceContext(), 
 										(char*)"../x64/Debug/data/cube.txt",
 										(WCHAR*)"../x64/Debug/data/stone01.tga");
 	if (!result)
@@ -40,6 +40,14 @@ bool GraphicsClass::Initialize(int screen_width, int screen_height, HWND hwnd)
 		MessageBox(hwnd, L"Could not initialize model", L"Error", MB_OK);
 		return false;
 	}
+
+	customer = new Customer;
+	if (!customer)
+	{
+		return false;
+	}
+
+	m_object->SetName("Game Object");
 
 	m_lightShader = new LightShaderClass;
 	if (!m_lightShader)
@@ -80,11 +88,11 @@ void GraphicsClass::Shutdown()
 		delete m_lightShader;
 		m_lightShader = nullptr;
 	}
-	if (m_model)
+	if (m_object)
 	{
-		m_model->Shutdown();
-		delete m_model;
-		m_model = nullptr;
+		m_object->Release();
+		delete m_object;
+		m_object = nullptr;
 	}
 	if (m_camera)
 	{
@@ -135,12 +143,12 @@ bool GraphicsClass::Render(float rotation)
 
 	world_matrix = DirectX::XMMatrixRotationY(rotation);
 
-	m_model->Render(m_D3D->GetDeviceContext());
+	m_object->Render(m_D3D->GetDeviceContext());
 
 	result = m_lightShader->Render(m_D3D->GetDeviceContext(), 
-								   m_model->GetIndexCount(),
+								   m_object->GetModel()->GetIndexCount(),
 								   world_matrix, view_matrix, projection_matrix,
-								   m_model->GetTexture(),
+								   m_object->GetModel()->GetTexture(),
 								   m_light->GetDirection(),
 								   m_light->GetAmbientColour(),
 					    		   m_light->GetDiffuseColour());

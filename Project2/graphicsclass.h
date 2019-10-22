@@ -3,10 +3,11 @@
 
 #include "d3dclass.h"
 #include "cameraclass.h"
-#include "modelclass.h"
+#include "GameObject.h"
 #include "colorshaderclass.h"
 #include "LightShaderClass.h"
 #include "LightClass.h"
+#include "Customer.h"
 
 const bool FULL_SCREEN = false;
 const bool VSYNC_ENABLED = false;
@@ -28,8 +29,9 @@ private:
 
 	D3DClass* m_D3D = nullptr;
 	CameraClass* m_camera = nullptr;
-	ModelClass* m_model = nullptr;
+	GameObject* m_object = nullptr;
 	LightShaderClass* m_lightShader = nullptr;
 	LightClass* m_light = nullptr;
+	Customer* customer = nullptr;
 };
 

@@ -317,12 +317,9 @@ bool ModelClass::GenerateVertices(ID3D11DeviceContext* device_context)
 
 	for (unsigned int i = 0; i < m_vertex_count; i++)
 	{
-		//x = m_model[i].x;
-		//y = m_model[i].y;
-		//z = m_model[i].z;
-		x = m_model[i].x + m_position.x;
-		y = m_model[i].y + m_position.y;
-		z = m_model[i].z + m_position.z;
+		x = (m_model[i].x + m_position.x) * m_scale.x;
+		y = (m_model[i].y + m_position.y) * m_scale.y;
+		z = (m_model[i].z + m_position.z) * m_scale.z;
 
 		ModifyVertex(vertices[i],
 			DirectX::XMFLOAT3(x, y, z),

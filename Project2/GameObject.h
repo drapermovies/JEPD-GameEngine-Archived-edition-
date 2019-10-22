@@ -11,7 +11,11 @@ public:
 	GameObject(const GameObject&) = default;
 	~GameObject() = default;
 
+	bool Initialize(ID3D11Device*, ID3D11DeviceContext*, char*, WCHAR*);
+
 	void Release();
+
+	void Render(ID3D11DeviceContext*);
 
 	std::string GetName();
 	void SetName(std::string);
@@ -33,6 +37,8 @@ public:
 	void RemoveChild(std::string);
 	std::vector<GameObject*> GetChildren();
 	std::vector<GameObject*> GetChildrenWithTag(std::string);
+
+	ModelClass* GetModel() { return m_model; }
 private:
 	std::string name = "Game Object";
 

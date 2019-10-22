@@ -1,9 +1,3 @@
-﻿  GameObject.cpp
-  graphicsclass.cpp
-  main.cpp
-  modelclass.cpp
-C:\Users\Joel\Documents\GitHub\AT-SimGame\Project2\modelclass.cpp(73,10): warning C4101: 'result': unreferenced local variable
-  systemclass.cpp
-  Generating Code...
-C:\Users\Joel\Documents\GitHub\AT-SimGame\Project2\modelclass.cpp(318,29): warning C4018: '<': signed/unsigned mismatch
+﻿  Customer.cpp
+C:\Users\Joel\Documents\GitHub\AT-SimGame\Project2\Customer.cpp(5,17): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
   Project2.vcxproj -> C:\Users\Joel\Documents\GitHub\AT-SimGame\x64\Debug\Project2.exe
