@@ -47,7 +47,11 @@ bool GraphicsClass::Initialize(int screen_width, int screen_height, HWND hwnd)
 		return false;
 	}
 
-	m_object->SetName("Game Object");
+	m_object->SetName("Cube");
+	m_object->SetTag("Cube");
+
+	m_object->SetPosition(1, 1, 1);
+	m_object->SetScale(2, 2, 2);
 
 	m_lightShader = new LightShaderClass;
 	if (!m_lightShader)
@@ -71,6 +75,14 @@ bool GraphicsClass::Initialize(int screen_width, int screen_height, HWND hwnd)
 	m_light->SetAmbientColour(0.15f, 0.15f, 0.15f, 1.0f);
 	m_light->SetDiffuseColour(1.0f, 1.0f, 1.0f, 1.0f);
 	m_light->SetDirection(1.0f, 0.0f, 0.0f);
+
+	m_timer = new TimerClass;
+	if (!m_timer)
+	{
+		return false;
+	}
+
+	m_timer->Initialize();
 
 	return true;
 }
@@ -112,7 +124,10 @@ bool GraphicsClass::Frame()
 {
 	bool result = false;
 	static float rotation = 0.0f;
-	rotation += (float)DirectX::XM_PI * 0.00025f;
+
+	m_timer->Frame();
+
+	rotation += (float)(DirectX::XM_PI * 0.00025f) * m_timer->GetTime();
 	if (rotation > 360.0f)
 	{
 		rotation -= 360.0f;

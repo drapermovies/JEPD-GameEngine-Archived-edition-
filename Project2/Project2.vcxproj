@@ -134,13 +134,17 @@
     <ClCompile Include="LightShaderClass.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="modelclass.cpp" />
+    <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="systemclass.cpp" />
     <ClCompile Include="TextureClass.cpp" />
     <ClCompile Include="TextureShaderClass.cpp" />
+    <ClCompile Include="TimerClass.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cameraclass.h" />
     <ClInclude Include="colorshaderclass.h" />
+    <ClInclude Include="CubeDemo.h" />
     <ClInclude Include="Customer.h" />
     <ClInclude Include="d3dclass.h" />
     <ClInclude Include="GameObject.h" />
@@ -151,9 +155,11 @@
     <ClInclude Include="MatrixBufferType.h" />
     <ClInclude Include="modelclass.h" />
     <ClInclude Include="Scene.h" />
+    <ClInclude Include="SceneManager.h" />
     <ClInclude Include="systemclass.h" />
     <ClInclude Include="TextureClass.h" />
     <ClInclude Include="TextureShaderClass.h" />
+    <ClInclude Include="TimerClass.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\x64\Debug\Texture.ps" />

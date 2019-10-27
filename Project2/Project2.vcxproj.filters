@@ -66,6 +66,15 @@
     <ClCompile Include="Customer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="TimerClass.cpp">
+      <Filter>Source Files\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Scene.h">
@@ -111,6 +120,15 @@
       <Filter>Header Files\Engine</Filter>
     </ClInclude>
     <ClInclude Include="Customer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TimerClass.h">
+      <Filter>Header Files\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="CubeDemo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,3 +1,2 @@
-﻿  Customer.cpp
-C:\Users\Joel\Documents\GitHub\AT-SimGame\Project2\Customer.cpp(5,17): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+﻿  graphicsclass.cpp
   Project2.vcxproj -> C:\Users\Joel\Documents\GitHub\AT-SimGame\x64\Debug\Project2.exe

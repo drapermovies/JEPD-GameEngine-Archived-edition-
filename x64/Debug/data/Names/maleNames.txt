@@ -46,11 +46,14 @@ Ali
 Julian
 Rick
 Andrew
+Stefano
 Winston
 Patrick
 George
 Shigeru
 Gianni
+Guido
+Giedo
 Juan
 Joseph
 Giuliano
@@ -136,6 +139,7 @@ Steve
 Carlo
 Kris
 Evgeni
+Takuma
 Floyd
 Mohammed
 Jodie

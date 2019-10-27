@@ -12,7 +12,6 @@ bool GameObject::Initialize(ID3D11Device* device, ID3D11DeviceContext* device_co
 	}
 
 	result = m_model->Initialize(device, device_context, model_filename, texture_filename);
-	m_model->SetScale(2.0f, 2.0f, 2.0f);
 
 	return result;
 }

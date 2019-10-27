@@ -8,6 +8,7 @@
 #include "LightShaderClass.h"
 #include "LightClass.h"
 #include "Customer.h"
+#include "TimerClass.h"
 
 const bool FULL_SCREEN = false;
 const bool VSYNC_ENABLED = false;
@@ -33,5 +34,6 @@ private:
 	LightShaderClass* m_lightShader = nullptr;
 	LightClass* m_light = nullptr;
 	Customer* customer = nullptr;
+	TimerClass* m_timer = nullptr;
 };
 
