@@ -1,14 +1,20 @@
 #pragma once
 #include <Windows.h>
 
+//Engine
 #include "d3dclass.h"
 #include "cameraclass.h"
 #include "GameObject.h"
+#include "TimerClass.h"
+#include "LightClass.h"
+
+//Shaders
 #include "colorshaderclass.h"
 #include "LightShaderClass.h"
-#include "LightClass.h"
+
+//Game Objects
+#include "SceneManager.h"
 #include "Customer.h"
-#include "TimerClass.h"
 
 const bool FULL_SCREEN = false;
 const bool VSYNC_ENABLED = false;
@@ -29,11 +35,8 @@ private:
 	bool Render(float);
 
 	D3DClass* m_D3D = nullptr;
-	CameraClass* m_camera = nullptr;
-	GameObject* m_object = nullptr;
-	LightShaderClass* m_lightShader = nullptr;
-	LightClass* m_light = nullptr;
-	Customer* customer = nullptr;
 	TimerClass* m_timer = nullptr;
+
+	std::unique_ptr<SceneManager> m_SceneManager = nullptr;
 };
 

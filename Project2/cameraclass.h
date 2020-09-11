@@ -4,27 +4,25 @@
 class CameraClass 
 {
 public:
-	CameraClass() = default;
+	CameraClass();
 	CameraClass(const CameraClass&) = default;
 	~CameraClass() = default;
 
+	void SetPosition(float);
 	void SetPosition(float, float, float);
+	void SetRotation(float);
 	void SetRotation(float, float, float);
 
-	DirectX::XMFLOAT3 GetPosition();
-	DirectX::XMFLOAT3 GetRotation();
+	DirectX::XMFLOAT3 GetPosition() const;
+	DirectX::XMFLOAT3 GetRotation() const;
 
 	void Render();
 	void GetViewMatrix(DirectX::XMMATRIX&);
 
 private:
-	float m_positionX = 0.0f;
-	float m_positionY = 0.0f;
-	float m_positionZ = 0.0f;
+	DirectX::XMFLOAT3 m_Position = DirectX::XMFLOAT3(0, 0, 0);
 
-	float m_rotationX = 0.0f;
-	float m_rotationY = 0.0f;
-	float m_rotationZ = 0.0f;
+	DirectX::XMFLOAT3 m_Rotation = DirectX::XMFLOAT3(0, 0, 0);
 
 	DirectX::XMMATRIX m_viewMatrix;
 };

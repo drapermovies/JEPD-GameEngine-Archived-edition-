@@ -24,6 +24,7 @@ public:
 	DirectX::XMFLOAT3 GetPosition();
 
 	void SetRotation(float, float, float);
+	void SetRotation(DirectX::XMFLOAT3);
 	DirectX::XMFLOAT3 GetRotation();
 
 	void SetScale(float, float, float);

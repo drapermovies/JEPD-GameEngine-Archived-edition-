@@ -1,4 +1,5 @@
 #include "graphicsclass.h"
+#include "CubeDemo.h"
 
 bool GraphicsClass::Initialize(int screen_width, int screen_height, HWND hwnd)
 {
@@ -17,43 +18,27 @@ bool GraphicsClass::Initialize(int screen_width, int screen_height, HWND hwnd)
 		return false;
 	}
 
-	m_camera = new CameraClass;
-	if (!m_camera)
+	m_timer = new TimerClass;
+	if (!m_timer)
 	{
 		return false;
 	}
 
-	m_camera->SetPosition(0.0f, 3.0f, -6.0f);
-	m_camera->SetRotation(25.0f, 0.0f, -6.0f);
-
-	m_object = new GameObject();
-	if (!m_object)
-	{
-		return false;
-	}
-
-	result = m_object->Initialize(m_D3D->GetDevice(), m_D3D->GetDeviceContext(), 
-										(char*)"../x64/Debug/data/cube.txt",
-										(WCHAR*)"../x64/Debug/data/stone01.tga");
+	result = m_timer->Initialize();
 	if (!result)
 	{
-		MessageBox(hwnd, L"Could not initialize model", L"Error", MB_OK);
 		return false;
 	}
 
-	customer = new Customer;
-	if (!customer)
+	m_SceneManager = std::make_unique<SceneManager>();
+	if (!m_SceneManager)
 	{
 		return false;
 	}
 
-	m_object->SetName("Cube");
-	m_object->SetTag("Cube");
+	m_SceneManager->directX = m_D3D;
 
-	m_object->SetPosition(1, 1, 1);
-	m_object->SetScale(2, 2, 2);
-
-	m_lightShader = new LightShaderClass;
+	LightShaderClass* m_lightShader = new LightShaderClass;
 	if (!m_lightShader)
 	{
 		return false;
@@ -66,51 +51,38 @@ bool GraphicsClass::Initialize(int screen_width, int screen_height, HWND hwnd)
 		return false;
 	}
 
-	m_light = new LightClass;
-	if (!m_light)
-	{
-		return false;
-	}
+	CubeDemo* DemoScene = new CubeDemo(*m_timer, *m_lightShader);
+	m_SceneManager->AddScene(DemoScene);
 
-	m_light->SetAmbientColour(0.15f, 0.15f, 0.15f, 1.0f);
-	m_light->SetDiffuseColour(1.0f, 1.0f, 1.0f, 1.0f);
-	m_light->SetDirection(1.0f, 0.0f, 0.0f);
-
-	m_timer = new TimerClass;
-	if (!m_timer)
-	{
-		return false;
-	}
-
-	m_timer->Initialize();
+	DemoScene->Initialize(); //WE GET THE SCENE MANAGERS DX INSTANCE
 
 	return true;
 }
 
 void GraphicsClass::Shutdown()
 {
-	if (m_light)
-	{
-		delete m_light;
-		m_light = nullptr;
-	}
-	if (m_lightShader)
-	{
-		m_lightShader->Shutdown();
-		delete m_lightShader;
-		m_lightShader = nullptr;
-	}
-	if (m_object)
-	{
-		m_object->Release();
-		delete m_object;
-		m_object = nullptr;
-	}
-	if (m_camera)
-	{
-		delete m_camera;
-		m_camera = nullptr;
-	}
+	//if (m_light)
+	//{
+	//	delete m_light;
+	//	m_light = nullptr;
+	//}
+	//if (m_lightShader)
+	//{
+	//	m_lightShader->Shutdown();
+	//	delete m_lightShader;
+	//	m_lightShader = nullptr;
+	//}
+	//if (m_object)
+	//{
+	//	m_object->Release();
+	//	delete m_object;
+	//	m_object = nullptr;
+	//}
+	//if (m_camera)
+	//{
+	//	delete m_camera;
+	//	m_camera = nullptr;
+	//}
 	if (m_D3D)
 	{
 		m_D3D->Shutdown();
@@ -125,13 +97,14 @@ bool GraphicsClass::Frame()
 	bool result = false;
 	static float rotation = 0.0f;
 
+	m_SceneManager->Update();
 	m_timer->Frame();
 
-	rotation += (float)(DirectX::XM_PI * 0.00025f) * m_timer->GetTime();
-	if (rotation > 360.0f)
-	{
-		rotation -= 360.0f;
-	}
+	//rotation += (float)(DirectX::XM_PI * 0.00025f) * m_timer->GetTime();
+	//if (rotation > 360.0f)
+	//{
+	//	rotation -= 360.0f;
+	//}
 
 	result = Render(rotation);
 	if (!result)
@@ -143,30 +116,12 @@ bool GraphicsClass::Frame()
 
 bool GraphicsClass::Render(float rotation)
 {
-	DirectX::XMMATRIX world_matrix;
-	DirectX::XMMATRIX view_matrix;
-	DirectX::XMMATRIX projection_matrix;
 	bool result = false;
 
 	m_D3D->BeginScene(0.0f, 0.0f, 0.0f, 1.0f);
 
-	m_camera->Render();
+	result = m_SceneManager->Render();
 
-	m_D3D->GetWorldMatrix(world_matrix);
-	m_camera->GetViewMatrix(view_matrix);
-	m_D3D->GetProjectionMatrix(projection_matrix);
-
-	world_matrix = DirectX::XMMatrixRotationY(rotation);
-
-	m_object->Render(m_D3D->GetDeviceContext());
-
-	result = m_lightShader->Render(m_D3D->GetDeviceContext(), 
-								   m_object->GetModel()->GetIndexCount(),
-								   world_matrix, view_matrix, projection_matrix,
-								   m_object->GetModel()->GetTexture(),
-								   m_light->GetDirection(),
-								   m_light->GetAmbientColour(),
-					    		   m_light->GetDiffuseColour());
 	if (!result)
 	{
 		return false;

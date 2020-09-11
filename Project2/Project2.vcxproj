@@ -125,6 +125,7 @@
   <ItemGroup>
     <ClCompile Include="cameraclass.cpp" />
     <ClCompile Include="colorshaderclass.cpp" />
+    <ClCompile Include="CubeDemo.cpp" />
     <ClCompile Include="Customer.cpp" />
     <ClCompile Include="d3dclass.cpp" />
     <ClCompile Include="GameObject.cpp" />

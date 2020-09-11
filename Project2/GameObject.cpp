@@ -57,6 +57,11 @@ void GameObject::SetRotation(float x, float y, float z)
 	//TODO - MODEL ROTATION
 }
 
+void GameObject::SetRotation(DirectX::XMFLOAT3 newRotation)
+{
+	rotation = newRotation;
+}
+
 DirectX::XMFLOAT3 GameObject::GetRotation()
 {
 	return rotation;

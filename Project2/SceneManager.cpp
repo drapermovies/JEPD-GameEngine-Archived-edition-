@@ -19,11 +19,12 @@ void SceneManager::Update()
 
 bool SceneManager::Render()
 {
+	bool result = false;
 	for (Scene* scene : GetActiveScenes())
 	{
-		scene->Render();
+		result = scene->Render();
 	}
-	return true;
+	return result;
 }
 
 std::vector<Scene*> SceneManager::GetActiveScenes()
@@ -41,6 +42,7 @@ std::vector<Scene*> SceneManager::GetActiveScenes()
 
 void SceneManager::AddScene(Scene* scene)
 {
+	scene->m_directX = directX;
 	scenes.push_back(scene);
 }
 
@@ -52,6 +54,15 @@ Scene* SceneManager::GetScene(std::string name)
 		{
 			return scene;
 		}
+	}
+	return nullptr;
+}
+
+CameraClass* SceneManager::GetSceneCamera()
+{
+	for (Scene* scene : GetActiveScenes())
+	{
+		scene->GetCamera();
 	}
 	return nullptr;
 }

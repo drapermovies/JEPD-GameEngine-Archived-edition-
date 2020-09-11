@@ -1,29 +1,43 @@
 #include "cameraclass.h"
 
+CameraClass::CameraClass()
+{
+	SetPosition(0, 0, 0);
+	SetRotation(0, 0, 0);
+}
+
+void CameraClass::SetPosition(float x)
+{
+	m_Position = DirectX::XMFLOAT3(x, x, x);
+	return;
+}
+
 void CameraClass::SetPosition(float x, float y, float z)
 {
-	m_positionX = x;
-	m_positionY = y;
-	m_positionZ = z;
+	m_Position = DirectX::XMFLOAT3(x, y, z);
+	return;
+}
+
+void CameraClass::SetRotation(float x)
+{
+	m_Rotation = DirectX::XMFLOAT3(x, x, x);
 	return;
 }
 
 void CameraClass::SetRotation(float x, float y, float z)
 {
-	m_rotationX = x;
-	m_rotationY = y;
-	m_rotationZ = z;
+	m_Rotation = DirectX::XMFLOAT3(x, y, z);
 	return;
 }
 
-DirectX::XMFLOAT3 CameraClass::GetPosition()
+DirectX::XMFLOAT3 CameraClass::GetPosition() const
 {
-	return DirectX::XMFLOAT3(m_positionX, m_positionY, m_positionZ);
+	return m_Position;
 }
 
-DirectX::XMFLOAT3 CameraClass::GetRotation()
+DirectX::XMFLOAT3 CameraClass::GetRotation() const
 {
-	return DirectX::XMFLOAT3(m_rotationX, m_positionY, m_positionZ);
+	return m_Rotation;
 }
 
 void CameraClass::Render()
@@ -48,11 +62,7 @@ void CameraClass::Render()
 
 	up_vector = DirectX::XMLoadFloat3(&up);
 
-	position.x = m_positionX;
-	position.y = m_positionY;
-	position.z = m_positionZ;
-
-	position_vector = DirectX::XMLoadFloat3(&position);
+	position_vector = DirectX::XMLoadFloat3(&m_Position);
 
 	look_at.x = 0.0f;
 	look_at.y = 0.0f;
@@ -62,9 +72,9 @@ void CameraClass::Render()
 
 	float radians = 0.0174532925f;
 
-	pitch = m_rotationX * radians;
-	yaw = m_rotationY * radians;
-	roll = m_rotationZ * radians;
+	pitch = m_Rotation.x * radians;
+	yaw = m_Rotation.y * radians;
+	roll = m_Rotation.z * radians;
 
 	rotation_matrix = DirectX::XMMatrixRotationRollPitchYaw(pitch, roll, yaw);
 
