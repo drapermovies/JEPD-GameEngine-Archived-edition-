@@ -28,6 +28,8 @@ public:
 	void GetOrthoMatrix(DirectX::XMMATRIX&);
 
 	void GetVideoCardInfo(char*, int&);
+
+	void TurnOnZBuffer(bool turn_on = true);
 private:
 	bool m_vsync_enabled = false;
 	int m_videoCardMemory = -1;
@@ -45,4 +47,6 @@ private:
 	DirectX::XMMATRIX m_projectionMatrix;
 	DirectX::XMMATRIX m_worldMatrix;
 	DirectX::XMMATRIX m_orthoMatrix;
+
+	ID3D11DepthStencilState* m_depthDisabledStencilState = nullptr;
 };

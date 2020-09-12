@@ -22,6 +22,7 @@ bool D3DClass::Initialize(int screen_width, int screen_height, bool vsync,
 	D3D11_RASTERIZER_DESC raster_desc;
 	D3D11_VIEWPORT viewport;
 	float field_of_view = 0, screen_aspect = 0;
+	D3D11_DEPTH_STENCIL_DESC depth_disabled_stencil_desc;
 
 	m_vsync_enabled = vsync;
 
@@ -250,11 +251,38 @@ bool D3DClass::Initialize(int screen_width, int screen_height, bool vsync,
 	field_of_view = 3.141592654f / 4.0f;
 	screen_aspect = (float)screen_width / (float)screen_height;
 
+	//3D Projection point
 	m_projectionMatrix = DirectX::XMMatrixPerspectiveFovLH(field_of_view, screen_aspect, screen_near, screen_depth);
 
 	m_worldMatrix = DirectX::XMMatrixIdentity();
 
 	m_orthoMatrix = DirectX::XMMatrixOrthographicLH((float)screen_width, (float)screen_height, screen_near, screen_depth);
+
+	ZeroMemory(&depth_disabled_stencil_desc, sizeof(depth_disabled_stencil_desc));
+
+	depth_disabled_stencil_desc.DepthEnable = false;
+	depth_disabled_stencil_desc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
+	depth_disabled_stencil_desc.DepthFunc = D3D11_COMPARISON_LESS;
+
+	depth_disabled_stencil_desc.StencilEnable = true;
+	depth_disabled_stencil_desc.StencilReadMask = 0xFF;
+	depth_disabled_stencil_desc.StencilWriteMask = 0xFF;
+
+	depth_disabled_stencil_desc.FrontFace.StencilFailOp = D3D11_STENCIL_OP_KEEP;
+	depth_disabled_stencil_desc.FrontFace.StencilDepthFailOp = D3D11_STENCIL_OP_INCR;
+	depth_disabled_stencil_desc.FrontFace.StencilPassOp = D3D11_STENCIL_OP_KEEP;
+	depth_disabled_stencil_desc.FrontFace.StencilFunc = D3D11_COMPARISON_ALWAYS;
+
+	depth_disabled_stencil_desc.BackFace.StencilFailOp = D3D11_STENCIL_OP_KEEP;
+	depth_disabled_stencil_desc.BackFace.StencilDepthFailOp = D3D11_STENCIL_OP_DECR;
+	depth_disabled_stencil_desc.BackFace.StencilPassOp = D3D11_STENCIL_OP_KEEP;
+	depth_disabled_stencil_desc.BackFace.StencilFunc = D3D11_COMPARISON_ALWAYS;
+
+	result = m_device->CreateDepthStencilState(&depth_disabled_stencil_desc, &m_depthDisabledStencilState);
+	if (FAILED(result))
+	{
+		return false;
+	}
 
 	return true;
 }
@@ -264,6 +292,11 @@ void D3DClass::Shutdown()
 	if (m_swapChain)
 	{
 		m_swapChain->SetFullscreenState(false, nullptr);
+	}
+	if (m_depthDisabledStencilState)
+	{
+		m_depthDisabledStencilState->Release();
+		m_depthDisabledStencilState = nullptr;
 	}
 	if (m_rasterState)
 	{
@@ -371,4 +404,16 @@ void D3DClass::GetVideoCardInfo(char* card_name, int& memory)
 	return;
 }
 
+void D3DClass::TurnOnZBuffer(bool turn_on)
+{
+	if (turn_on)
+	{
+		m_deviceContext->OMSetDepthStencilState(m_depthStencilState, 1);
+	}
+	else
+	{
+		m_deviceContext->OMSetDepthStencilState(m_depthDisabledStencilState, 1);
+	}
+	return;
+}
 

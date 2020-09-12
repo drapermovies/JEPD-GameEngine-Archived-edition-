@@ -1,8 +1,15 @@
 #include "CubeDemo.h"
 
-CubeDemo::CubeDemo(TimerClass& TimerClass, LightShaderClass& LightShader) :
-	Scene(TimerClass, LightShader)
+CubeDemo::CubeDemo(TimerClass& TimerClass, 
+				   LightShaderClass& LightShader,
+				   TextureShaderClass& TextureShader) :
+	Scene(TimerClass, LightShader, TextureShader)
 {}
+
+CubeDemo::~CubeDemo()
+{
+	Shutdown();
+}
 
 void CubeDemo::Shutdown()
 {
@@ -31,7 +38,7 @@ void CubeDemo::Shutdown()
 	}
 }
 
-bool CubeDemo::Initialize()
+bool CubeDemo::Initialize(float screen_width, float screen_height)
 {
 	bool result = false;
 	m_camera = new CameraClass();
@@ -67,6 +74,19 @@ bool CubeDemo::Initialize()
 	m_Object->SetPosition(0, -1, 3);
 	m_Object->SetScale(1.5f, 1.5f, 1.5f);
 
+	BitmapClass* m_bitmap = new BitmapClass;
+	if (!m_bitmap)
+	{
+		return false;
+	}
+
+	result = m_bitmap->Initialize(m_directX->GetDevice(),
+		m_directX->GetDeviceContext(),
+		screen_width, screen_height,
+		(WCHAR*)"../x64/Debug/data/stone01.tga",
+		256, 256);
+
+	m_canvasObjects.push_back(m_bitmap);
 	m_lightSources.push_back(m_light);
 	m_gameObjects.push_back(m_Object);
 

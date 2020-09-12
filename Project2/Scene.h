@@ -6,8 +6,10 @@
 #include "d3dclass.h"
 #include "LightClass.h"
 #include "LightShaderClass.h"
+#include "TextureShaderClass.h"
 #include "GameObject.h"
 #include "SceneManager.h"
+#include "BitmapClass.h"
 #include "TimerClass.h"
 
 class Scene
@@ -15,11 +17,11 @@ class Scene
 	friend class SceneManager;
 
 public:
-	Scene(TimerClass&, LightShaderClass&);
+	Scene(TimerClass&, LightShaderClass&, TextureShaderClass&);
 	Scene(const Scene&) = default;
 	~Scene() = default;
 
-	virtual bool Initialize() = 0;
+	virtual bool Initialize(float, float) = 0;
 	virtual void Shutdown() = 0;
 
 	virtual void Update() = 0;
@@ -44,6 +46,9 @@ protected:
 	LightShaderClass& m_LightShader;
 	CameraClass* m_camera;
 
+	TextureShaderClass& m_CanvasShader;
+
 	std::vector<GameObject*> m_gameObjects;
 	std::vector<LightClass*> m_lightSources;
+	std::vector<BitmapClass*> m_canvasObjects;
 };

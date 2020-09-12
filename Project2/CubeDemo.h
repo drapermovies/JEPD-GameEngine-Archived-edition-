@@ -5,11 +5,11 @@ class CubeDemo : public Scene
 {
 public:
 	CubeDemo() = default;
-	CubeDemo(TimerClass&, LightShaderClass&);
+	CubeDemo(TimerClass&, LightShaderClass&, TextureShaderClass&);
 	CubeDemo(const CubeDemo&) = default;
 	~CubeDemo();
 
-	bool Initialize() override;
+	bool Initialize(float, float) override;
 	void Shutdown() override;
 
 	void Update() override;

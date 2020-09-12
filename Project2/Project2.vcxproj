@@ -123,6 +123,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BitmapClass.cpp" />
     <ClCompile Include="cameraclass.cpp" />
     <ClCompile Include="colorshaderclass.cpp" />
     <ClCompile Include="CubeDemo.cpp" />
@@ -142,6 +143,7 @@
     <ClCompile Include="TimerClass.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BitmapClass.h" />
     <ClInclude Include="cameraclass.h" />
     <ClInclude Include="colorshaderclass.h" />
     <ClInclude Include="CubeDemo.h" />

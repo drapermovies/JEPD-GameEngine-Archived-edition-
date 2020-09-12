@@ -75,6 +75,9 @@
     <ClCompile Include="CubeDemo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="BitmapClass.cpp">
+      <Filter>Source Files\Engine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Scene.h">
@@ -127,6 +130,9 @@
     </ClInclude>
     <ClInclude Include="SceneManager.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BitmapClass.h">
+      <Filter>Header Files\Engine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

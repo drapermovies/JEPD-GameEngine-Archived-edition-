@@ -51,10 +51,23 @@ bool GraphicsClass::Initialize(int screen_width, int screen_height, HWND hwnd)
 		return false;
 	}
 
-	CubeDemo* DemoScene = new CubeDemo(*m_timer, *m_lightShader);
+	TextureShaderClass* m_textureShader = new TextureShaderClass;
+	if (!m_textureShader)
+	{
+		return false;
+	}
+
+	result = m_textureShader->Initialize(m_D3D->GetDevice(), hwnd);
+	if (!result)
+	{
+		MessageBox(hwnd, L"Could not initialize the canvas shader object", L"Error", MB_OK);
+		return false;
+	}
+
+	CubeDemo* DemoScene = new CubeDemo(*m_timer, *m_lightShader, *m_textureShader);
 	m_SceneManager->AddScene(DemoScene);
 
-	DemoScene->Initialize(); //WE GET THE SCENE MANAGERS DX INSTANCE
+	DemoScene->Initialize(screen_width, screen_height); //WE GET THE SCENE MANAGERS DX INSTANCE
 
 	return true;
 }
@@ -78,12 +91,6 @@ bool GraphicsClass::Frame()
 	m_SceneManager->Update();
 	m_timer->Frame();
 
-	//rotation += (float)(DirectX::XM_PI * 0.00025f) * m_timer->GetTime();
-	//if (rotation > 360.0f)
-	//{
-	//	rotation -= 360.0f;
-	//}
-
 	result = Render(rotation);
 	if (!result)
 	{
@@ -94,6 +101,7 @@ bool GraphicsClass::Frame()
 
 bool GraphicsClass::Render(float rotation)
 {
+	DirectX::XMMATRIX worldMatrix, viewMatrix, positionMatrix, orthoMatrix;
 	bool result = false;
 
 	m_D3D->BeginScene(0.0f, 0.0f, 0.0f, 1.0f);
