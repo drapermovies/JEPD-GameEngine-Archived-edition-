@@ -126,7 +126,6 @@
     <ClCompile Include="cameraclass.cpp" />
     <ClCompile Include="colorshaderclass.cpp" />
     <ClCompile Include="CubeDemo.cpp" />
-    <ClCompile Include="Customer.cpp" />
     <ClCompile Include="d3dclass.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="graphicsclass.cpp" />
@@ -146,7 +145,6 @@
     <ClInclude Include="cameraclass.h" />
     <ClInclude Include="colorshaderclass.h" />
     <ClInclude Include="CubeDemo.h" />
-    <ClInclude Include="Customer.h" />
     <ClInclude Include="d3dclass.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="graphicsclass.h" />
@@ -167,6 +165,8 @@
     <None Include="..\x64\Debug\Texture.vs" />
     <None Include="Shaders\Color.ps" />
     <None Include="Shaders\Color.vs" />
+    <None Include="Shaders\Light.ps" />
+    <None Include="Shaders\Light.vs" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

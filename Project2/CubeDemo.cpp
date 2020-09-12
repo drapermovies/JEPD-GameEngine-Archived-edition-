@@ -60,7 +60,9 @@ bool CubeDemo::Initialize()
 
 	m_light->SetAmbientColour(0.15f, 0.15f, 0.15f, 1.0f);
 	m_light->SetDiffuseColour(1.0f, 1.0f, 1.0f, 1.0f);
-	m_light->SetDirection(1.0f, 0.0f, 0.0f);
+	m_light->SetDirection(0.0f, 0.0f, 1.0f);
+	m_light->SetSpecularColour(DirectX::XMFLOAT4(1, 1, 1, 1));
+	m_light->SetSpecularPower(32.0f);
 
 	m_Object->SetPosition(0, -1, 3);
 	m_Object->SetScale(1.5f, 1.5f, 1.5f);

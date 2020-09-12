@@ -63,9 +63,6 @@
     <ClCompile Include="TextureShaderClass.cpp">
       <Filter>Source Files\Engine</Filter>
     </ClCompile>
-    <ClCompile Include="Customer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="TimerClass.cpp">
       <Filter>Source Files\Engine</Filter>
     </ClCompile>
@@ -122,9 +119,6 @@
     <ClInclude Include="TextureShaderClass.h">
       <Filter>Header Files\Engine</Filter>
     </ClInclude>
-    <ClInclude Include="Customer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="TimerClass.h">
       <Filter>Header Files\Engine</Filter>
     </ClInclude>
@@ -146,6 +140,12 @@
       <Filter>Shaders</Filter>
     </None>
     <None Include="..\x64\Debug\Texture.ps">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\Light.ps">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\Light.vs">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>

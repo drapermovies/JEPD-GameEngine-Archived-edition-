@@ -35,7 +35,10 @@ bool Scene::Render()
 											go->GetModel()->GetTexture(),
 											m_lightSources[0]->GetDirection(),
 											m_lightSources[0]->GetAmbientColour(),
-											m_lightSources[0]->GetDiffuseColour());
+											m_lightSources[0]->GetDiffuseColour(),
+											m_camera->GetPosition(),
+											m_lightSources[0]->GetSpecularColour(),
+											m_lightSources[0]->GetSpecularPower());
 		}
 	}
 

@@ -14,7 +14,6 @@
 
 //Game Objects
 #include "SceneManager.h"
-#include "Customer.h"
 
 const bool FULL_SCREEN = false;
 const bool VSYNC_ENABLED = false;

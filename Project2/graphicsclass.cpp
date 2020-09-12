@@ -61,28 +61,6 @@ bool GraphicsClass::Initialize(int screen_width, int screen_height, HWND hwnd)
 
 void GraphicsClass::Shutdown()
 {
-	//if (m_light)
-	//{
-	//	delete m_light;
-	//	m_light = nullptr;
-	//}
-	//if (m_lightShader)
-	//{
-	//	m_lightShader->Shutdown();
-	//	delete m_lightShader;
-	//	m_lightShader = nullptr;
-	//}
-	//if (m_object)
-	//{
-	//	m_object->Release();
-	//	delete m_object;
-	//	m_object = nullptr;
-	//}
-	//if (m_camera)
-	//{
-	//	delete m_camera;
-	//	m_camera = nullptr;
-	//}
 	if (m_D3D)
 	{
 		m_D3D->Shutdown();
