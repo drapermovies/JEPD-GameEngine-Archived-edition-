@@ -7,3 +7,9 @@ struct MatrixBufferType
 	DirectX::XMMATRIX view;
 	DirectX::XMMATRIX projection;
 };
+
+struct VertexType
+{
+	DirectX::XMFLOAT3 position;
+	DirectX::XMFLOAT2 texture;
+};

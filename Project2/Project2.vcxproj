@@ -128,6 +128,7 @@
     <ClCompile Include="colorshaderclass.cpp" />
     <ClCompile Include="CubeDemo.cpp" />
     <ClCompile Include="d3dclass.cpp" />
+    <ClCompile Include="FontClass.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="graphicsclass.cpp" />
     <ClCompile Include="inputclass.cpp" />
@@ -148,12 +149,13 @@
     <ClInclude Include="colorshaderclass.h" />
     <ClInclude Include="CubeDemo.h" />
     <ClInclude Include="d3dclass.h" />
+    <ClInclude Include="FontClass.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="graphicsclass.h" />
     <ClInclude Include="inputclass.h" />
     <ClInclude Include="LightClass.h" />
     <ClInclude Include="LightShaderClass.h" />
-    <ClInclude Include="MatrixBufferType.h" />
+    <ClInclude Include="BufferTypes.h" />
     <ClInclude Include="modelclass.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />

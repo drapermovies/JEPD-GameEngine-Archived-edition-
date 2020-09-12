@@ -78,6 +78,9 @@
     <ClCompile Include="BitmapClass.cpp">
       <Filter>Source Files\Engine</Filter>
     </ClCompile>
+    <ClCompile Include="FontClass.cpp">
+      <Filter>Source Files\Engine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Scene.h">
@@ -107,9 +110,6 @@
     <ClInclude Include="LightShaderClass.h">
       <Filter>Header Files\Engine</Filter>
     </ClInclude>
-    <ClInclude Include="MatrixBufferType.h">
-      <Filter>Header Files\Engine</Filter>
-    </ClInclude>
     <ClInclude Include="modelclass.h">
       <Filter>Header Files\Engine</Filter>
     </ClInclude>
@@ -132,6 +132,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="BitmapClass.h">
+      <Filter>Header Files\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="BufferTypes.h">
+      <Filter>Header Files\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="FontClass.h">
       <Filter>Header Files\Engine</Filter>
     </ClInclude>
   </ItemGroup>

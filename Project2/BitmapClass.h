@@ -1,6 +1,7 @@
 #pragma once
 #include <d3d11.h>
 #include <DirectXMath.h>
+#include "BufferTypes.h"
 #include "TextureClass.h"
 
 class BitmapClass
@@ -17,12 +18,6 @@ public:
 	int GetIndexCount() const;
 	ID3D11ShaderResourceView* GetTexture() const;
 private:
-	struct VertexType
-	{
-		DirectX::XMFLOAT3 position;
-		DirectX::XMFLOAT2 texture;
-	};
-
 	bool InitializeBuffers(ID3D11Device*);
 	void ShutdownBuffers();
 	bool UpdateBuffers(ID3D11DeviceContext*, int, int);
