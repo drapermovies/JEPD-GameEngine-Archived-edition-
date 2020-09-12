@@ -45,8 +45,8 @@ bool CubeDemo::Initialize()
 	}
 
 	result = m_Object->Initialize(m_directX->GetDevice(), m_directX->GetDeviceContext(),
-										(char*)"../x64/Debug/data/cube.txt",
-										(WCHAR*)"../x64/Debug/data/stone01.tga");
+										(char*)"../Project2/Assets/cube.txt",
+										(WCHAR*)"../Project2/Assets/stone01.tga");
 	if (!result)
 	{
 		return false;

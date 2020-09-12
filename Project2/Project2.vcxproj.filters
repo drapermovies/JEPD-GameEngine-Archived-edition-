@@ -22,6 +22,15 @@
     <Filter Include="Source Files\Engine">
       <UniqueIdentifier>{913961f3-5b1e-4dab-ade3-43294c10e142}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\RapidXML">
+      <UniqueIdentifier>{807ba09b-a86b-4982-b894-26373498fb88}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="XML">
+      <UniqueIdentifier>{1d6b0f73-d0e3-4af3-a178-1456d4556413}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="XML\Scenes">
+      <UniqueIdentifier>{c2fede10-9450-4449-b385-5cea86d4e175}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -63,9 +72,6 @@
     <ClCompile Include="TextureShaderClass.cpp">
       <Filter>Source Files\Engine</Filter>
     </ClCompile>
-    <ClCompile Include="Customer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="TimerClass.cpp">
       <Filter>Source Files\Engine</Filter>
     </ClCompile>
@@ -76,6 +82,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="CubeDemo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="XMLParser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -122,9 +131,6 @@
     <ClInclude Include="TextureShaderClass.h">
       <Filter>Header Files\Engine</Filter>
     </ClInclude>
-    <ClInclude Include="Customer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="TimerClass.h">
       <Filter>Header Files\Engine</Filter>
     </ClInclude>
@@ -133,6 +139,21 @@
     </ClInclude>
     <ClInclude Include="SceneManager.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidxml.hpp">
+      <Filter>Header Files\RapidXML</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidxml_iterators.hpp">
+      <Filter>Header Files\RapidXML</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidxml_print.hpp">
+      <Filter>Header Files\RapidXML</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidxml_utils.hpp">
+      <Filter>Header Files\RapidXML</Filter>
+    </ClInclude>
+    <ClInclude Include="XMLParser.h">
+      <Filter>Header Files\RapidXML</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -148,5 +169,10 @@
     <None Include="..\x64\Debug\Texture.ps">
       <Filter>Shaders</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="XML\Scenes\test.xml">
+      <Filter>XML\Scenes</Filter>
+    </Xml>
   </ItemGroup>
 </Project>

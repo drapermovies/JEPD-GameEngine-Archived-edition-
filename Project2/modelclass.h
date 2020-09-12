@@ -29,6 +29,7 @@ protected:
 
 	DirectX::XMFLOAT3 GetRotation() { return m_rotation; }
 	void SetRotation(float, float, float);
+	void SetRotation(DirectX::XMFLOAT3);
 private:
 	struct VertexType
 	{

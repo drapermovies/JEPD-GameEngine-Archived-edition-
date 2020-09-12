@@ -61,6 +61,11 @@ void ModelClass::SetRotation(float x, float y, float z)
 	m_rotation = DirectX::XMFLOAT3(x, y, z);
 }
 
+void ModelClass::SetRotation(DirectX::XMFLOAT3 new_rotation)
+{
+	m_rotation = new_rotation;
+}
+
 ID3D11ShaderResourceView* ModelClass::GetTexture()
 {
 	return m_texture->GetTexture();

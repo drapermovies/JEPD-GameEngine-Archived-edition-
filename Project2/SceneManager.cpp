@@ -1,5 +1,11 @@
 #include "SceneManager.h"
 
+SceneManager::SceneManager(TimerClass& Timer, LightShaderClass& Shader)
+	: m_timer(Timer)
+{
+	m_parser = std::make_unique<XMLParser>(this, Timer, Shader);
+}
+
 void SceneManager::Shutdown()
 {
 	for (Scene* scene : scenes)

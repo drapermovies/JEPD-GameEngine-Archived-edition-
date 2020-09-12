@@ -5,11 +5,14 @@
 #include "Scene.h"
 #include "TimerClass.h"
 
+#include "XMLParser.h"
+
 class SceneManager
 {
 	friend class Scene;
+	friend class XMLParser;
 public:
-	SceneManager() = default;
+	SceneManager(TimerClass&, LightShaderClass&);
 	SceneManager(const SceneManager&) = default;
 	~SceneManager() = default;
 
@@ -26,7 +29,11 @@ public:
 	CameraClass* GetSceneCamera();
 
 	D3DClass* directX;
+protected:
+	TimerClass& m_timer;
 private:
+
 	std::vector<Scene*> scenes;
-	std::unique_ptr<TimerClass> m_timer;
+
+	std::unique_ptr<XMLParser> m_parser;
 };

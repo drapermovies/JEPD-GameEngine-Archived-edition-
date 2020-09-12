@@ -30,19 +30,19 @@ bool GraphicsClass::Initialize(int screen_width, int screen_height, HWND hwnd)
 		return false;
 	}
 
-	m_SceneManager = std::make_unique<SceneManager>();
+	LightShaderClass* m_lightShader = new LightShaderClass;
+	if (!m_lightShader)
+	{
+		return false;
+	}
+
+	m_SceneManager = std::make_unique<SceneManager>(*m_timer, *m_lightShader);
 	if (!m_SceneManager)
 	{
 		return false;
 	}
 
 	m_SceneManager->directX = m_D3D;
-
-	LightShaderClass* m_lightShader = new LightShaderClass;
-	if (!m_lightShader)
-	{
-		return false;
-	}
 
 	result = m_lightShader->Initialize(m_D3D->GetDevice(), hwnd);
 	if (!result)
@@ -61,28 +61,6 @@ bool GraphicsClass::Initialize(int screen_width, int screen_height, HWND hwnd)
 
 void GraphicsClass::Shutdown()
 {
-	//if (m_light)
-	//{
-	//	delete m_light;
-	//	m_light = nullptr;
-	//}
-	//if (m_lightShader)
-	//{
-	//	m_lightShader->Shutdown();
-	//	delete m_lightShader;
-	//	m_lightShader = nullptr;
-	//}
-	//if (m_object)
-	//{
-	//	m_object->Release();
-	//	delete m_object;
-	//	m_object = nullptr;
-	//}
-	//if (m_camera)
-	//{
-	//	delete m_camera;
-	//	m_camera = nullptr;
-	//}
 	if (m_D3D)
 	{
 		m_D3D->Shutdown();
@@ -99,12 +77,6 @@ bool GraphicsClass::Frame()
 
 	m_SceneManager->Update();
 	m_timer->Frame();
-
-	//rotation += (float)(DirectX::XM_PI * 0.00025f) * m_timer->GetTime();
-	//if (rotation > 360.0f)
-	//{
-	//	rotation -= 360.0f;
-	//}
 
 	result = Render(rotation);
 	if (!result)
