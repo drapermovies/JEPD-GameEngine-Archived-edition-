@@ -1,23 +1,25 @@
 #pragma once
 #include <d3d11.h>
 #include <vector>
+#include <Windows.h>
 
 #include "cameraclass.h"
 #include "d3dclass.h"
 #include "LightClass.h"
-#include "LightShaderClass.h"
-#include "TextureShaderClass.h"
 #include "GameObject.h"
+#include "ShaderManager.h"
 #include "SceneManager.h"
 #include "BitmapClass.h"
+#include "TextObject.h"
 #include "TimerClass.h"
+#include "UserInterface.h"
 
 class Scene
 {
 	friend class SceneManager;
 
 public:
-	Scene(TimerClass&, LightShaderClass&, TextureShaderClass&);
+	Scene(TimerClass&, ShaderManager&);
 	Scene(const Scene&) = default;
 	~Scene() = default;
 
@@ -41,14 +43,13 @@ protected:
 	std::string name = "Scene";
 	bool is_active = true;
 
-	D3DClass* m_directX;
+	D3DClass* m_directX = nullptr;
 	TimerClass& m_timer;
-	LightShaderClass& m_LightShader;
-	CameraClass* m_camera;
+	CameraClass* m_camera = nullptr;
 
-	TextureShaderClass& m_CanvasShader;
+	UserInterface* m_UI = nullptr;
+	ShaderManager& m_ShaderManager;
 
 	std::vector<GameObject*> m_gameObjects;
 	std::vector<LightClass*> m_lightSources;
-	std::vector<BitmapClass*> m_canvasObjects;
 };

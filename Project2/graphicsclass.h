@@ -12,7 +12,8 @@
 #include "colorshaderclass.h"
 #include "LightShaderClass.h"
 
-//Game Objects
+//Managers
+#include "ShaderManager.h"
 #include "SceneManager.h"
 
 const bool FULL_SCREEN = false;
@@ -35,6 +36,7 @@ private:
 
 	D3DClass* m_D3D = nullptr;
 	TimerClass* m_timer = nullptr;
+	ShaderManager* m_ShaderManager = nullptr;
 
 	std::unique_ptr<SceneManager> m_SceneManager = nullptr;
 };

@@ -23,6 +23,7 @@ bool D3DClass::Initialize(int screen_width, int screen_height, bool vsync,
 	D3D11_VIEWPORT viewport;
 	float field_of_view = 0, screen_aspect = 0;
 	D3D11_DEPTH_STENCIL_DESC depth_disabled_stencil_desc;
+	D3D11_BLEND_DESC blend_state_desc;
 
 	m_vsync_enabled = vsync;
 
@@ -237,6 +238,14 @@ bool D3DClass::Initialize(int screen_width, int screen_height, bool vsync,
 
 	m_deviceContext->RSSetState(m_rasterState);
 
+	raster_desc.CullMode = D3D11_CULL_NONE;
+
+	result = m_device->CreateRasterizerState(&raster_desc, &m_rasterStateNoCulling);
+	if (FAILED(result))
+	{
+		return false;
+	}
+
 	//Viewport
 	viewport.Width = (float)screen_width;
 	viewport.Height = (float)screen_height;
@@ -284,6 +293,32 @@ bool D3DClass::Initialize(int screen_width, int screen_height, bool vsync,
 		return false;
 	}
 
+	//Alpha blending for 2D rendering (Canvas objs)
+	ZeroMemory(&blend_state_desc, sizeof(D3D11_BLEND_DESC));
+
+	blend_state_desc.RenderTarget[0].BlendEnable = true;
+	blend_state_desc.RenderTarget[0].SrcBlend = D3D11_BLEND_ONE;
+	blend_state_desc.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA;
+	blend_state_desc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
+	blend_state_desc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;
+	blend_state_desc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ZERO;
+	blend_state_desc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
+	blend_state_desc.RenderTarget[0].RenderTargetWriteMask = 0x0f;
+
+	result = m_device->CreateBlendState(&blend_state_desc, &m_alphaEnableBlendingState);
+	if (FAILED(result))
+	{
+		return false;
+	}
+
+	blend_state_desc.RenderTarget[0].BlendEnable = false;
+
+	result = m_device->CreateBlendState(&blend_state_desc, &m_alphaDisableBlendingState);
+	if (FAILED(result))
+	{
+		return false;
+	}
+
 	return true;
 }
 
@@ -292,6 +327,16 @@ void D3DClass::Shutdown()
 	if (m_swapChain)
 	{
 		m_swapChain->SetFullscreenState(false, nullptr);
+	}
+	if (m_alphaEnableBlendingState)
+	{
+		m_alphaEnableBlendingState->Release();
+		m_alphaEnableBlendingState = nullptr;
+	}
+	if (m_alphaDisableBlendingState)
+	{
+		m_alphaDisableBlendingState->Release();
+		m_alphaDisableBlendingState = nullptr;
 	}
 	if (m_depthDisabledStencilState)
 	{
@@ -417,3 +462,35 @@ void D3DClass::TurnOnZBuffer(bool turn_on)
 	return;
 }
 
+void D3DClass::TurnOnAlphaBlending(bool turn_on)
+{
+	float blend_factor[4];
+
+	blend_factor[0] = 0.0f;
+	blend_factor[1] = 0.0f;
+	blend_factor[2] = 0.0f;
+	blend_factor[3] = 0.0f;
+
+	if (turn_on)
+	{
+		m_deviceContext->OMSetBlendState(m_alphaEnableBlendingState, blend_factor, 0xffffffff);
+	}
+	else
+	{
+		m_deviceContext->OMSetBlendState(m_alphaDisableBlendingState, blend_factor, 0xffffffff);
+	}
+	return;
+}
+
+
+void D3DClass::ModifyCulling(bool turn_on)
+{
+	if (turn_on)
+	{
+		m_deviceContext->RSSetState(m_rasterState);
+	}
+	else
+	{
+		m_deviceContext->RSSetState(m_rasterStateNoCulling);
+	}
+}

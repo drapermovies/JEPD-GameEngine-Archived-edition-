@@ -22,18 +22,24 @@
     <Filter Include="Source Files\Engine">
       <UniqueIdentifier>{913961f3-5b1e-4dab-ade3-43294c10e142}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Engine\Types">
+      <UniqueIdentifier>{b48bb2e1-6397-43c6-aa73-ae84be9f4fa8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Object Types">
+      <UniqueIdentifier>{d85e0d70-6f7c-41aa-8da6-45eda6ea32bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Engine\Shader Classes">
+      <UniqueIdentifier>{d312e1f3-440c-4916-a84f-5f65a082e1e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Shader Classes">
+      <UniqueIdentifier>{57f426a1-a0a8-4b78-b8ac-58689e44f7e4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GameObject.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="cameraclass.cpp">
-      <Filter>Source Files\Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="colorshaderclass.cpp">
       <Filter>Source Files\Engine</Filter>
     </ClCompile>
     <ClCompile Include="d3dclass.cpp">
@@ -48,9 +54,6 @@
     <ClCompile Include="LightClass.cpp">
       <Filter>Source Files\Engine</Filter>
     </ClCompile>
-    <ClCompile Include="LightShaderClass.cpp">
-      <Filter>Source Files\Engine</Filter>
-    </ClCompile>
     <ClCompile Include="modelclass.cpp">
       <Filter>Source Files\Engine</Filter>
     </ClCompile>
@@ -58,9 +61,6 @@
       <Filter>Source Files\Engine</Filter>
     </ClCompile>
     <ClCompile Include="TextureClass.cpp">
-      <Filter>Source Files\Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="TextureShaderClass.cpp">
       <Filter>Source Files\Engine</Filter>
     </ClCompile>
     <ClCompile Include="TimerClass.cpp">
@@ -81,18 +81,36 @@
     <ClCompile Include="FontClass.cpp">
       <Filter>Source Files\Engine</Filter>
     </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Source Files\Engine\Object Types</Filter>
+    </ClCompile>
+    <ClCompile Include="TextObject.cpp">
+      <Filter>Source Files\Engine\Object Types</Filter>
+    </ClCompile>
+    <ClCompile Include="colorshaderclass.cpp">
+      <Filter>Source Files\Engine\Shader Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="FontShaderClass.cpp">
+      <Filter>Source Files\Engine\Shader Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="LightShaderClass.cpp">
+      <Filter>Source Files\Engine\Shader Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureShaderClass.cpp">
+      <Filter>Source Files\Engine\Shader Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="UserInterface.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderManager.cpp">
+      <Filter>Source Files\Engine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Scene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GameObject.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="cameraclass.h">
-      <Filter>Header Files\Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="colorshaderclass.h">
       <Filter>Header Files\Engine</Filter>
     </ClInclude>
     <ClInclude Include="d3dclass.h">
@@ -107,9 +125,6 @@
     <ClInclude Include="LightClass.h">
       <Filter>Header Files\Engine</Filter>
     </ClInclude>
-    <ClInclude Include="LightShaderClass.h">
-      <Filter>Header Files\Engine</Filter>
-    </ClInclude>
     <ClInclude Include="modelclass.h">
       <Filter>Header Files\Engine</Filter>
     </ClInclude>
@@ -117,9 +132,6 @@
       <Filter>Header Files\Engine</Filter>
     </ClInclude>
     <ClInclude Include="TextureClass.h">
-      <Filter>Header Files\Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="TextureShaderClass.h">
       <Filter>Header Files\Engine</Filter>
     </ClInclude>
     <ClInclude Include="TimerClass.h">
@@ -140,6 +152,30 @@
     <ClInclude Include="FontClass.h">
       <Filter>Header Files\Engine</Filter>
     </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Header Files\Engine\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="TextObject.h">
+      <Filter>Header Files\Engine\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="FontShaderClass.h">
+      <Filter>Header Files\Engine\Shader Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="colorshaderclass.h">
+      <Filter>Header Files\Engine\Shader Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="LightShaderClass.h">
+      <Filter>Header Files\Engine\Shader Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureShaderClass.h">
+      <Filter>Header Files\Engine\Shader Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="UserInterface.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderManager.h">
+      <Filter>Header Files\Engine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\Color.ps">
@@ -158,6 +194,12 @@
       <Filter>Shaders</Filter>
     </None>
     <None Include="Shaders\Light.vs">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\x64\Debug\data\Shaders\font.ps">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\x64\Debug\data\Shaders\font.vs">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>

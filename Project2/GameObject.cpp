@@ -1,7 +1,7 @@
 #include "GameObject.h"
 
 bool GameObject::Initialize(ID3D11Device* device, ID3D11DeviceContext* device_context, 
-							char* model_filename, WCHAR* texture_filename)
+							char* model_filename, char* texture_filename)
 {
 	bool result = false;
 

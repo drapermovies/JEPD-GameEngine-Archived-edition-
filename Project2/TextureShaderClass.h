@@ -4,7 +4,7 @@
 #include <directxmath.h>
 #include <fstream>
 
-#include "MatrixBufferType.h"
+#include "BufferTypes.h"
 
 class TextureShaderClass
 {

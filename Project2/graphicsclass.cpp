@@ -36,35 +36,21 @@ bool GraphicsClass::Initialize(int screen_width, int screen_height, HWND hwnd)
 		return false;
 	}
 
+	m_ShaderManager = new ShaderManager;
+	if (!m_ShaderManager)
+	{
+		return false;
+	}
+
+	result = m_ShaderManager->Initialize(m_D3D->GetDevice(), hwnd);
+	if (!result)
+	{
+		return false;
+	}
+
 	m_SceneManager->directX = m_D3D;
 
-	LightShaderClass* m_lightShader = new LightShaderClass;
-	if (!m_lightShader)
-	{
-		return false;
-	}
-
-	result = m_lightShader->Initialize(m_D3D->GetDevice(), hwnd);
-	if (!result)
-	{
-		MessageBox(hwnd, L"Could not initialize the light Shader object", L"Error", MB_OK);
-		return false;
-	}
-
-	TextureShaderClass* m_textureShader = new TextureShaderClass;
-	if (!m_textureShader)
-	{
-		return false;
-	}
-
-	result = m_textureShader->Initialize(m_D3D->GetDevice(), hwnd);
-	if (!result)
-	{
-		MessageBox(hwnd, L"Could not initialize the canvas shader object", L"Error", MB_OK);
-		return false;
-	}
-
-	CubeDemo* DemoScene = new CubeDemo(*m_timer, *m_lightShader, *m_textureShader);
+	CubeDemo* DemoScene = new CubeDemo(*m_timer, *m_ShaderManager);
 	m_SceneManager->AddScene(DemoScene);
 
 	DemoScene->Initialize(screen_width, screen_height); //WE GET THE SCENE MANAGERS DX INSTANCE

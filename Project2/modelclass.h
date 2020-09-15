@@ -13,7 +13,7 @@ public:
 	ModelClass(const ModelClass&) = default;
 	~ModelClass() = default;
 
-	bool Initialize(ID3D11Device*, ID3D11DeviceContext*, char*, WCHAR*);
+	bool Initialize(ID3D11Device*, ID3D11DeviceContext*, char*, char*);
 	void Shutdown();
 	void Render(ID3D11DeviceContext*);
 

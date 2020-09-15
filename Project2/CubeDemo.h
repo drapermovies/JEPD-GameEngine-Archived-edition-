@@ -1,11 +1,12 @@
 #pragma once
 #include "Scene.h"
+#include "TextObject.h"
 
 class CubeDemo : public Scene
 {
 public:
 	CubeDemo() = default;
-	CubeDemo(TimerClass&, LightShaderClass&, TextureShaderClass&);
+	CubeDemo(TimerClass&, ShaderManager&);
 	CubeDemo(const CubeDemo&) = default;
 	~CubeDemo();
 
@@ -13,5 +14,4 @@ public:
 	void Shutdown() override;
 
 	void Update() override;
-private:
 };

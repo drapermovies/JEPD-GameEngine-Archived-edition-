@@ -11,7 +11,7 @@ public:
 	GameObject(const GameObject&) = default;
 	~GameObject() = default;
 
-	bool Initialize(ID3D11Device*, ID3D11DeviceContext*, char*, WCHAR*);
+	bool Initialize(ID3D11Device*, ID3D11DeviceContext*, char*, char*);
 
 	void Release();
 

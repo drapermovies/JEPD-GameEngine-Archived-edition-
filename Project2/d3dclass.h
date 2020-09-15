@@ -30,6 +30,8 @@ public:
 	void GetVideoCardInfo(char*, int&);
 
 	void TurnOnZBuffer(bool turn_on = true);
+	void TurnOnAlphaBlending(bool turn_on = true);
+	void ModifyCulling(bool turn_on = true);
 private:
 	bool m_vsync_enabled = false;
 	int m_videoCardMemory = -1;
@@ -43,10 +45,14 @@ private:
 	ID3D11DepthStencilState* m_depthStencilState = nullptr;
 	ID3D11DepthStencilView* m_depthStencilView = nullptr;
 	ID3D11RasterizerState* m_rasterState = nullptr;
+	ID3D11RasterizerState* m_rasterStateNoCulling = nullptr;
 
 	DirectX::XMMATRIX m_projectionMatrix;
 	DirectX::XMMATRIX m_worldMatrix;
 	DirectX::XMMATRIX m_orthoMatrix;
 
 	ID3D11DepthStencilState* m_depthDisabledStencilState = nullptr;
+
+	ID3D11BlendState* m_alphaEnableBlendingState = nullptr;
+	ID3D11BlendState* m_alphaDisableBlendingState = nullptr;
 };

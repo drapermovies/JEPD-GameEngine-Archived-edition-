@@ -10,6 +10,7 @@ public:
 	~TextureClass() = default;
 
 	bool Initialize(ID3D11Device*, ID3D11DeviceContext*, char*);
+	bool Initialize(ID3D11Device*, char*);
 	void Shutdown();
 	ID3D11ShaderResourceView* GetTexture();
 private:

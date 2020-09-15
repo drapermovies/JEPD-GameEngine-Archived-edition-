@@ -5,10 +5,15 @@
 
 bool FontClass::Initialize(ID3D11Device* device,
 						   ID3D11DeviceContext* device_context,
-						   char* font_filename, 
-						   WCHAR* texture_filename)
+						   char* font_filename,
+						   char* texture_filename,
+	                       float font_height, int space_size)
 {
+	m_FontHeight = font_height;
+	m_SpaceSize = space_size;
+
 	bool result = LoadFontData(font_filename);
+
 	if (result)
 	{
 		result = LoadTexture(device, device_context, texture_filename);
@@ -83,7 +88,6 @@ void FontClass::BuildVertexArray(void* vertices,
 bool FontClass::LoadFontData(char* file_name)
 {
 	std::ifstream fin;
-	int i = -1;
 	char temp = ' ';
 
 	m_Font = new FontType[95];
@@ -95,7 +99,7 @@ bool FontClass::LoadFontData(char* file_name)
 	fin.open(file_name);
 	if (fin.fail()) { return false; }
 
-	for (unsigned short i = 0; i < 95; i++)
+	for (int i = 0; i < 95; i++)
 	{
 		fin.get(temp);
 		while (temp != ' ')
@@ -129,7 +133,7 @@ void FontClass::ReleaseFontData()
 
 bool FontClass::LoadTexture(ID3D11Device* device, 
 							ID3D11DeviceContext* device_context,
-							WCHAR* filename)
+							char* filename)
 {
 	bool result = false;
 
@@ -137,7 +141,7 @@ bool FontClass::LoadTexture(ID3D11Device* device,
 
 	if (m_texture)
 	{
-		result = m_texture->Initialize(device, device_context, (char*)filename);
+		result = m_texture->Initialize(device, device_context, filename);
 	}
 	return result;
 }

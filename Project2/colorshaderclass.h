@@ -3,7 +3,7 @@
 #include <d3dcompiler.h>
 #include <DirectXMath.h>
 #include <fstream>
-#include "MatrixBufferType.h"
+#include "BufferTypes.h"
 
 class ColourShaderClass
 {

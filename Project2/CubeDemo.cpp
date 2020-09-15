@@ -1,9 +1,8 @@
 #include "CubeDemo.h"
 
 CubeDemo::CubeDemo(TimerClass& TimerClass, 
-				   LightShaderClass& LightShader,
-				   TextureShaderClass& TextureShader) :
-	Scene(TimerClass, LightShader, TextureShader)
+				   ShaderManager& ShaderManager) :
+	Scene(TimerClass, ShaderManager)
 {}
 
 CubeDemo::~CubeDemo()
@@ -40,10 +39,22 @@ void CubeDemo::Shutdown()
 
 bool CubeDemo::Initialize(float screen_width, float screen_height)
 {
+	DirectX::XMMATRIX base_view_matrix;
+
 	bool result = false;
 	m_camera = new CameraClass();
+	if (!m_camera)
+	{
+		return false;
+	}
+
 	m_camera->SetPosition(0.0f, 3.0f, -6.0f);
-	m_camera->SetRotation(25.0f, 0.0f, -6.0f);
+	m_camera->SetRotation(0, 0.0f, 0);
+
+	//Enables 2D canvas rendering
+	m_camera->Render();
+	m_camera->GetViewMatrix(base_view_matrix);
+
 
 	GameObject* m_Object = new GameObject();
 	if (!m_Object)
@@ -53,7 +64,7 @@ bool CubeDemo::Initialize(float screen_width, float screen_height)
 
 	result = m_Object->Initialize(m_directX->GetDevice(), m_directX->GetDeviceContext(),
 										(char*)"../x64/Debug/data/cube.txt",
-										(WCHAR*)"../x64/Debug/data/stone01.tga");
+										(char*)"../x64/Debug/data/stone01.tga");
 	if (!result)
 	{
 		return false;
@@ -86,20 +97,25 @@ bool CubeDemo::Initialize(float screen_width, float screen_height)
 		(WCHAR*)"../x64/Debug/data/stone01.tga",
 		256, 256);
 
-	m_canvasObjects.push_back(m_bitmap);
 	m_lightSources.push_back(m_light);
 	m_gameObjects.push_back(m_Object);
+
+	m_UI = new UserInterface();
+	if (m_UI)
+	{
+		result = m_UI->Initialize(m_directX, screen_height, screen_width);
+	}
 
 	return result;
 }
 
 void CubeDemo::Update()
 {
-	DirectX::XMFLOAT3 m_cubeRotation = m_gameObjects[0]->GetRotation();
-	m_cubeRotation.y += (float)(DirectX::XM_PI * 0.00025f) * m_timer.GetTime();
-	if (m_cubeRotation.y > 360.0f)
-	{
-		m_cubeRotation.y = 0.0f;
-	}
-	m_gameObjects[0]->SetRotation(m_cubeRotation);
+	//DirectX::XMFLOAT3 m_cubeRotation = m_gameObjects[0]->GetRotation();
+	//m_cubeRotation.y += (float)(DirectX::XM_PI * 0.00025f) * m_timer.GetTime();
+	//if (m_cubeRotation.y > 360.0f)
+	//{
+	//	m_cubeRotation.y = 0.0f;
+	//}
+	//m_gameObjects[0]->SetRotation(m_cubeRotation);
 }

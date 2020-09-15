@@ -2,7 +2,7 @@
 #include <iostream>
 
 bool ModelClass::Initialize(ID3D11Device* device, ID3D11DeviceContext* device_context,
-							char* model_filename, WCHAR* texture_filename)
+							char* model_filename, char* texture_filename)
 {
 	bool result = false;
 
@@ -18,7 +18,7 @@ bool ModelClass::Initialize(ID3D11Device* device, ID3D11DeviceContext* device_co
 
 	if (result)
 	{
-		result = LoadTexture(device, device_context, (char*)texture_filename);
+		result = LoadTexture(device, device_context, texture_filename);
 	}
 
 	return result;

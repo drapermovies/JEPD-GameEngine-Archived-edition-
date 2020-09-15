@@ -129,6 +129,9 @@
     <ClCompile Include="CubeDemo.cpp" />
     <ClCompile Include="d3dclass.cpp" />
     <ClCompile Include="FontClass.cpp" />
+    <ClCompile Include="ShaderManager.cpp" />
+    <ClCompile Include="TextObject.cpp" />
+    <ClCompile Include="FontShaderClass.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="graphicsclass.cpp" />
     <ClCompile Include="inputclass.cpp" />
@@ -142,6 +145,7 @@
     <ClCompile Include="TextureClass.cpp" />
     <ClCompile Include="TextureShaderClass.cpp" />
     <ClCompile Include="TimerClass.cpp" />
+    <ClCompile Include="UserInterface.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BitmapClass.h" />
@@ -150,6 +154,9 @@
     <ClInclude Include="CubeDemo.h" />
     <ClInclude Include="d3dclass.h" />
     <ClInclude Include="FontClass.h" />
+    <ClInclude Include="ShaderManager.h" />
+    <ClInclude Include="TextObject.h" />
+    <ClInclude Include="FontShaderClass.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="graphicsclass.h" />
     <ClInclude Include="inputclass.h" />
@@ -163,8 +170,11 @@
     <ClInclude Include="TextureClass.h" />
     <ClInclude Include="TextureShaderClass.h" />
     <ClInclude Include="TimerClass.h" />
+    <ClInclude Include="UserInterface.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\x64\Debug\data\Shaders\font.ps" />
+    <None Include="..\x64\Debug\data\Shaders\font.vs" />
     <None Include="..\x64\Debug\Texture.ps" />
     <None Include="..\x64\Debug\Texture.vs" />
     <None Include="Shaders\Color.ps" />
