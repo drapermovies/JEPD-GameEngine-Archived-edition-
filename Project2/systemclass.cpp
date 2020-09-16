@@ -9,10 +9,15 @@ bool SystemClass::Initialize()
 
 	InitializeWindows(screen_width, screen_height);
 
-	m_input = new InputClass();
+	m_input = new InputClass;
 	if (!m_input) { return false; }
 
-	m_input->Initialize();
+	result = m_input->Initialize(m_hInstance, m_hwnd, screen_width, screen_height);
+	if (!result) 
+	{
+		MessageBox(m_hwnd, L"Could not initialize the input object.", L"Error", MB_OK);
+		return result; 
+	}
 
 	m_graphics = new GraphicsClass;
 	if (!m_graphics) { return false; }
@@ -34,6 +39,7 @@ void SystemClass::Shutdown()
 
 	if (m_input)
 	{
+		m_input->Shutdown();
 		delete m_input;
 		m_input = nullptr;
 	}
@@ -69,8 +75,14 @@ void SystemClass::Run()
 			result = Frame();
 			if (!result)
 			{
+				MessageBox(m_hwnd, L"Frame Processing Failed", L"Error", MB_OK);
 				done = true;
 			}
+		}
+
+		if (m_input->IsKeyDown(KEY_STATE::ESCAPE))
+		{
+			done = true;
 		}
 	}
 	return;
@@ -78,41 +90,25 @@ void SystemClass::Run()
 
 LRESULT SystemClass::messageHandler(HWND hwnd, UINT umsg, WPARAM wparam, LPARAM lparam)
 {
-	switch (umsg)
-	{
-		case WM_KEYDOWN:
-		{
-			m_input->KeyDown((unsigned int)wparam);
-			return 0;
-		}
-		case WM_KEYUP:
-		{
-			m_input->KeyUp((unsigned int)wparam);
-			return 0;
-		}
-		default:
-		{
-			return DefWindowProc(hwnd, umsg, wparam, lparam);
-		}
-	}
-	return LRESULT();
+	return DefWindowProc(hwnd, umsg, wparam, lparam);
 }
 
 bool SystemClass::Frame()
 {
-	bool result = false;
+	bool result = m_input->Frame();
+	int mouseX = -1, mouseY = -1;
 
-	if (m_input->IsKeyDown(VK_ESCAPE))
+	if (result)
 	{
-		return false;
-	}
+		m_input->GetMouseLocation(mouseX, mouseY);
 
-	result = m_graphics->Frame();
-	if (!result)
-	{
-		return false;
+		result = m_graphics->Frame(mouseX, mouseY);
+		if (result)
+		{
+
+		}
 	}
-	return true;
+	return result;
 }
 
 void SystemClass::InitializeWindows(int& screen_width, int& screen_height)

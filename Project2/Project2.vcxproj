@@ -146,6 +146,7 @@
     <ClCompile Include="TextureShaderClass.cpp" />
     <ClCompile Include="TimerClass.cpp" />
     <ClCompile Include="UserInterface.cpp" />
+    <ClCompile Include="ViewFrustum.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BitmapClass.h" />
@@ -171,6 +172,7 @@
     <ClInclude Include="TextureShaderClass.h" />
     <ClInclude Include="TimerClass.h" />
     <ClInclude Include="UserInterface.h" />
+    <ClInclude Include="ViewFrustum.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\x64\Debug\data\Shaders\font.ps" />

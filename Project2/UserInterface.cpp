@@ -12,7 +12,7 @@ bool UserInterface::Initialize(D3DClass* directX, int screen_height, int screen_
 
 	result = m_Font->Initialize(directX->GetDevice(), directX->GetDeviceContext(),
 								(char*)"../x64/Debug/data/fontdata.txt",
-								(char*)"../x64/Debug/data/font01.tga", 32.0f, 3);
+								(char*)"../x64/Debug/data/font01.tga", 40.0f, 3);
 
 	if(result)
 	{ 

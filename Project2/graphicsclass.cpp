@@ -69,7 +69,7 @@ void GraphicsClass::Shutdown()
 	return;
 }
 
-bool GraphicsClass::Frame()
+bool GraphicsClass::Frame(int mouseX, int mouseY)
 {
 	bool result = false;
 	static float rotation = 0.0f;
@@ -77,15 +77,12 @@ bool GraphicsClass::Frame()
 	m_SceneManager->Update();
 	m_timer->Frame();
 
-	result = Render(rotation);
-	if (!result)
-	{
-		return false;
-	}
-	return true;
+	result = Render();
+
+	return result;
 }
 
-bool GraphicsClass::Render(float rotation)
+bool GraphicsClass::Render()
 {
 	DirectX::XMMATRIX worldMatrix, viewMatrix, positionMatrix, orthoMatrix;
 	bool result = false;

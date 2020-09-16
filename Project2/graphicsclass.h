@@ -30,9 +30,9 @@ public:
 
 	bool Initialize(int, int, HWND);
 	void Shutdown();
-	bool Frame();
+	bool Frame(int, int);
+	bool Render();
 private:
-	bool Render(float);
 
 	D3DClass* m_D3D = nullptr;
 	TimerClass* m_timer = nullptr;
