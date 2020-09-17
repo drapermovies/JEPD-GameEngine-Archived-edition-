@@ -19,23 +19,23 @@ public:
 	bool CheckCube(float, float, float, float);
 	bool CheckSphere(float, float, float, float);
 
+protected:
+	struct Plane
+	{
+		float a;
+		float b;
+		float c;
+		float d;
+
+		void Normalise(float length)
+		{
+			a /= length;
+			b /= length;
+			c /= length;
+			d /= length;
+		}
+	};
 private:
 	float m_screenDepth = -1;
 	Plane m_Planes[6];
-};
-
-struct Plane
-{
-	float a;
-	float b;
-	float c;
-	float d;
-
-	void Normalise(float length)
-	{
-		a /= length;
-		b /= length;
-		c /= length;
-		d /= length;
-	}
 };

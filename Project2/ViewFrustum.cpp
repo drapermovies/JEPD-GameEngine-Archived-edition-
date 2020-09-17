@@ -42,7 +42,7 @@ void ViewFrustum::ConstructViewFrustum(DirectX::XMMATRIX projection_matrix,
 	m_Planes[1].c = matrix._34 - matrix._33;
 	m_Planes[1].d = matrix._44 - matrix._43;
 
-	float length = sqrtf(pow(m_Planes[1].a, 2) + pow(m_Planes[1].b, 2) +
+	length = sqrtf(pow(m_Planes[1].a, 2) + pow(m_Planes[1].b, 2) +
 		pow(m_Planes[1].c, 2) + pow(m_Planes[1].d, 2));
 
 	m_Planes[1].Normalise(length);
@@ -53,7 +53,7 @@ void ViewFrustum::ConstructViewFrustum(DirectX::XMMATRIX projection_matrix,
 	m_Planes[2].c = matrix._34 + matrix._31;
 	m_Planes[2].d = matrix._44 + matrix._41;
 
-	float length = sqrtf(pow(m_Planes[2].a, 2) + pow(m_Planes[2].b, 2) +
+	length = sqrtf(pow(m_Planes[2].a, 2) + pow(m_Planes[2].b, 2) +
 		pow(m_Planes[2].c, 2) + pow(m_Planes[2].d, 2));
 
 	m_Planes[2].Normalise(length);
@@ -64,7 +64,7 @@ void ViewFrustum::ConstructViewFrustum(DirectX::XMMATRIX projection_matrix,
 	m_Planes[3].c = matrix._34 - matrix._31;
 	m_Planes[3].d = matrix._44 - matrix._41;
 
-	float length = sqrtf(pow(m_Planes[3].a, 2) + pow(m_Planes[3].b, 2) +
+	length = sqrtf(pow(m_Planes[3].a, 2) + pow(m_Planes[3].b, 2) +
 		pow(m_Planes[3].c, 2) + pow(m_Planes[3].d, 2));
 
 	m_Planes[3].Normalise(length);
@@ -75,7 +75,7 @@ void ViewFrustum::ConstructViewFrustum(DirectX::XMMATRIX projection_matrix,
 	m_Planes[4].c = matrix._34 - matrix._32;
 	m_Planes[4].d = matrix._44 - matrix._42;
 
-	float length = sqrtf(pow(m_Planes[4].a, 2) + pow(m_Planes[4].b, 2) +
+	length = sqrtf(pow(m_Planes[4].a, 2) + pow(m_Planes[4].b, 2) +
 		pow(m_Planes[4].c, 2) + pow(m_Planes[4].d, 2));
 
 	m_Planes[4].Normalise(length);
@@ -86,7 +86,7 @@ void ViewFrustum::ConstructViewFrustum(DirectX::XMMATRIX projection_matrix,
 	m_Planes[5].c = matrix._34 + matrix._32;
 	m_Planes[5].d = matrix._44 + matrix._42;
 
-	float length = sqrtf(pow(m_Planes[5].a, 2) + pow(m_Planes[5].b, 2) +
+	length = sqrtf(pow(m_Planes[5].a, 2) + pow(m_Planes[5].b, 2) +
 		pow(m_Planes[5].c, 2) + pow(m_Planes[5].d, 2));
 
 	m_Planes[5].Normalise(length);
@@ -111,6 +111,7 @@ bool ViewFrustum::CheckCube(float x_centre, float y_centre, float z_centre, floa
 {
 	for (int i = 0; i < 6; i++)
 	{
-		float dot_product = 
+		//float dot_product = 
 	}
+	return true;
 }
