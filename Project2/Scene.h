@@ -6,6 +6,7 @@
 #include "cameraclass.h"
 #include "d3dclass.h"
 #include "LightClass.h"
+#include "ViewFrustum.h"
 #include "GameObject.h"
 #include "ShaderManager.h"
 #include "SceneManager.h"
@@ -26,7 +27,7 @@ public:
 	virtual bool Initialize(float, float) = 0;
 	virtual void Shutdown() = 0;
 
-	virtual void Update() = 0;
+	virtual void Update(float YRotation) = 0;
 	
 	virtual bool Render();
 
@@ -49,6 +50,8 @@ protected:
 
 	UserInterface* m_UI = nullptr;
 	ShaderManager& m_ShaderManager;
+
+	ViewFrustum* m_Frustum = nullptr;
 
 	std::vector<GameObject*> m_gameObjects;
 	std::vector<LightClass*> m_lightSources;

@@ -107,11 +107,114 @@ bool ViewFrustum::CheckPoint(float x, float y, float z)
 	return true;
 }
 
-bool ViewFrustum::CheckCube(float x_centre, float y_centre, float z_centre, float length)
+bool ViewFrustum::CheckCube(float XCentre, float YCentre, float ZCentre, float Length)
 {
-	for (int i = 0; i < 6; i++)
+	float PositiveXValue = XCentre + Length;
+	float NegativeXValue = XCentre - Length;
+
+	float PositiveYValue = YCentre + Length;
+	float NegativeYValue = YCentre - Length;
+
+	float PositiveZValue = ZCentre + Length;
+	float NegativeZValue = ZCentre - Length;
+
+	float DotProduct = 1.0f;
+
+	//Check each of the frustum planes to see if the cube is insdie it
+	for (int face = 0; face < 6; face++)
 	{
-		//float dot_product = 
+		float DotProduct = 1;
+
+		//Check all 8 points to see if they are within the viewing frustum
+		for (int point = 0; point <= 8; point++)
+		{
+			float XValue = PositiveXValue, YValue = PositiveYValue, ZValue = PositiveZValue;
+			if (DotProduct > 0.0f)
+			{
+				//All points are in the frustum
+				if (point == 8) { return false; }
+
+				if (point % 2 == 0)
+				{
+					XValue = NegativeXValue;
+				}
+				if (point == 0 || point == 1 || point == 4 || point == 5)
+				{
+					YValue = NegativeYValue;
+				}
+				if (point < 4)
+				{
+					ZValue = NegativeZValue;
+				}
+
+				DotProduct = CubeDotProduct(m_Planes[face], XValue, YValue, ZValue);
+			}
+		}
 	}
 	return true;
+}
+
+bool ViewFrustum::CheckSphere(float XCentre, float YCentre, float ZCentre, float Radius)
+{
+	//Check all 6 viewing planes
+	for (int i = 0; i < 6; i++)
+	{
+		float DotProduct = (m_Planes[i].a * XCentre) + (m_Planes[i].b * YCentre)
+							+ (m_Planes[i].c * ZCentre) + m_Planes[i].d;
+
+		if (DotProduct <= -Radius)
+		{
+			return false;
+		}
+	}
+	return true;
+}
+
+bool ViewFrustum::CheckRectangle(float XCentre, float YCentre, float ZCentre,
+	float XSize, float YSize, float ZSize)
+{
+	float PositiveXValue = XCentre + XSize;
+	float NegativeXValue = XCentre - XSize;
+
+	float PositiveYValue = YCentre + YSize;
+	float NegativeYValue = YCentre - YSize;
+
+	float PositiveZValue = ZCentre + ZSize;
+	float NegativeZValue = ZCentre - ZSize;
+
+	//Check all 6 planes
+	for (short int i = 0; i < 6; i++)
+	{
+		float DotProduct = 0.0f;
+		//Check all 8 points to see if they are within the viewing frustum
+		for (int point = 0; point <= 8; point++)
+		{
+			float XValue = PositiveXValue, YValue = PositiveYValue, ZValue = PositiveZValue;
+			if (DotProduct > 0.0f)
+			{
+				//All points are in the frustum
+				if (point == 8) { return false; }
+
+				if (point % 2 == 0)
+				{
+					XValue = NegativeXValue;
+				}
+				if (point == 0 || point == 1 || point == 4 || point == 5)
+				{
+					YValue = NegativeYValue;
+				}
+				if (point < 4)
+				{
+					ZValue = NegativeZValue;
+				}
+
+				DotProduct = CubeDotProduct(m_Planes[i], XValue, YValue, ZValue);
+			}
+		}
+	}
+}
+
+float ViewFrustum::CubeDotProduct(Plane& Plane, float XValue, float YValue, float ZValue)
+{
+	return ((Plane.a * XValue) + (Plane.b * YValue) + (Plane.d * ZValue) + Plane.d);
 }

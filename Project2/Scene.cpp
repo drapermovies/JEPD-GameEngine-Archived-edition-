@@ -16,6 +16,8 @@ bool Scene::Render()
 
 	bool result = false;
 
+	m_directX->BeginScene(0.0f, 0.0f, 0.0f, 1.0f);
+
 	m_camera->Render();
 
 	m_directX->GetWorldMatrix(world_matrix);
@@ -23,17 +25,26 @@ bool Scene::Render()
 	m_directX->GetProjectionMatrix(projection_matrix);
 	m_directX->GetOrthoMatrix(ortho_matrix);
 
-	m_directX->BeginScene(0.0f, 0.0f, 0.0f, 1.0f);
+	m_Frustum->ConstructViewFrustum(projection_matrix, view_matrix);
 
 	m_directX->TurnOnZBuffer(true);
 	m_directX->ModifyCulling(true);
 
 	for (GameObject* go : m_gameObjects)
 	{
-		world_matrix = DirectX::XMMatrixRotationY(go->GetRotation().y);
-		if (go != nullptr)
+		bool RenderObject = m_Frustum->CheckRectangle(go->GetPosition().x,
+													go->GetPosition().y,
+													go->GetPosition().z,
+													go->GetScale().x,
+													go->GetScale().y,
+													go->GetScale().z);
+		if (RenderObject)
 		{
-			go->Render(m_directX->GetDeviceContext());
+			world_matrix = DirectX::XMMatrixRotationY(go->GetRotation().y);
+			if (go != nullptr)
+			{
+				go->Render(m_directX->GetDeviceContext());
+			}
 		}
 	}
 

@@ -13,5 +13,5 @@ public:
 	bool Initialize(float, float) override;
 	void Shutdown() override;
 
-	void Update() override;
+	void Update(float) override;
 };

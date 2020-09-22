@@ -18,6 +18,7 @@ public:
 	bool CheckPoint(float, float, float);
 	bool CheckCube(float, float, float, float);
 	bool CheckSphere(float, float, float, float);
+	bool CheckRectangle(float, float, float, float, float, float);
 
 protected:
 	struct Plane
@@ -36,6 +37,7 @@ protected:
 		}
 	};
 private:
+	float CubeDotProduct(Plane& Plane, float XValue, float YValue, float ZValue);
 	float m_screenDepth = -1;
 	Plane m_Planes[6];
 };

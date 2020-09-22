@@ -21,6 +21,12 @@ void CubeDemo::Shutdown()
 		}
 	}
 
+	if (m_Frustum)
+	{
+		delete m_Frustum;
+		m_Frustum = nullptr;
+	}
+
 	for (LightClass* light : m_lightSources)
 	{
 		if (light != nullptr)
@@ -106,16 +112,17 @@ bool CubeDemo::Initialize(float screen_width, float screen_height)
 		result = m_UI->Initialize(m_directX, screen_height, screen_width);
 	}
 
+	m_Frustum = new ViewFrustum;
+	if (!m_Frustum)
+	{
+		return false;
+	}
+
 	return result;
 }
 
-void CubeDemo::Update()
+void CubeDemo::Update(float YRotation)
 {
-	//DirectX::XMFLOAT3 m_cubeRotation = m_gameObjects[0]->GetRotation();
-	//m_cubeRotation.y += (float)(DirectX::XM_PI * 0.00025f) * m_timer.GetTime();
-	//if (m_cubeRotation.y > 360.0f)
-	//{
-	//	m_cubeRotation.y = 0.0f;
-	//}
-	//m_gameObjects[0]->SetRotation(m_cubeRotation);
+	m_camera->SetPosition(0.0F, 0.0F, -10.0f);
+	m_camera->SetRotation(0.0f, YRotation, 0.0f);
 }

@@ -3,7 +3,7 @@
 
 bool GraphicsClass::Initialize(int screen_width, int screen_height, HWND hwnd)
 {
-	bool result = false; 
+	bool result = false;
 	m_D3D = new D3DClass;
 	if (!m_D3D)
 	{
